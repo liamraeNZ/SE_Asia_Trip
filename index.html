@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Southeast Asia Trip 2027</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Playfair Display', 'Georgia', 'serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    .timeline-line::before {
+      content: '';
+      position: absolute;
+      left: 1.25rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #d1d5db, #e5e7eb);
+    }
+
+    @media (min-width: 768px) {
+      .timeline-line::before {
+        left: 1.5rem;
+      }
+    }
+
+    .highlight-scroll {
+      scrollbar-width: thin;
+      scrollbar-color: #e5e7eb transparent;
+    }
+
+    .highlight-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .highlight-scroll::-webkit-scrollbar-thumb {
+      background: #e5e7eb;
+      border-radius: 9999px;
+    }
+
+    .details-panel {
+      transition: max-width 0.35s ease, opacity 0.3s ease, margin 0.35s ease;
+    }
+
+    .details-panel.collapsed {
+      max-width: 0;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-left: 0;
+      flex: 0;
+    }
+
+    .details-panel.expanded {
+      max-width: 100%;
+      max-height: none;
+      opacity: 1;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .location-card {
+      transition: all 0.3s ease;
+    }
+
+    .location-card.expanded {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .passcode-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+    }
+
+    .toggle-track {
+      transition: background-color 0.2s ease;
+    }
+
+    .toggle-thumb {
+      transition: transform 0.2s ease;
+    }
+
+    .card-enter {
+      animation: fadeSlideIn 0.35s ease forwards;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-stone-50 text-stone-800 font-sans min-h-screen">
+
+  <!-- Passcode Modal -->
+  <div id="passcode-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/60 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm mx-4 text-center">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-emerald-100 flex items-center justify-center">
+        <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      </div>
+      <h2 class="font-display text-2xl font-bold text-stone-900 mb-1">Trip Itinerary</h2>
+      <p class="text-stone-500 text-sm mb-6">Enter your 4-digit passcode to view</p>
+      <div class="flex justify-center gap-2 mb-4" id="passcode-inputs">
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"
+          class="passcode-input w-12 h-14 text-center text-2xl font-bold border-2 border-stone-200 rounded-xl focus:border-emerald-500"
+          data-index="0">
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"
+          class="passcode-input w-12 h-14 text-center text-2xl font-bold border-2 border-stone-200 rounded-xl focus:border-emerald-500"
+          data-index="1">
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"
+          class="passcode-input w-12 h-14 text-center text-2xl font-bold border-2 border-stone-200 rounded-xl focus:border-emerald-500"
+          data-index="2">
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"
+          class="passcode-input w-12 h-14 text-center text-2xl font-bold border-2 border-stone-200 rounded-xl focus:border-emerald-500"
+          data-index="3">
+      </div>
+      <p id="passcode-error" class="text-red-500 text-sm hidden mb-3">Incorrect passcode. Please try again.</p>
+      <button id="passcode-submit"
+        class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition-colors">Unlock</button>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app" class="hidden">
+    <!-- Header -->
+    <header class="bg-gradient-to-br from-emerald-700 via-teal-700 to-cyan-800 text-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+        <p class="text-emerald-200 text-sm font-medium tracking-widest uppercase mb-2">February – March 2027</p>
+        <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3">Southeast Asia Adventure
+        </h1>
+        <p class="text-emerald-100/90 text-base sm:text-lg max-w-2xl">Thailand · Malaysia · Philippines — trains,
+          islands, jungles & street food</p>
+      </div>
+    </header>
+
+    <!-- Metrics Bar -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 -mt-6 relative z-10">
+      <div class="grid grid-cols-3 gap-3 sm:gap-4">
+        <div class="bg-white rounded-xl shadow-md border border-stone-100 p-4 sm:p-5 text-center">
+          <p id="metric-nights" class="text-2xl sm:text-3xl font-bold text-emerald-600">0</p>
+          <p class="text-xs sm:text-sm text-stone-500 mt-1">Total Nights</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-md border border-stone-100 p-4 sm:p-5 text-center">
+          <p id="metric-destinations" class="text-2xl sm:text-3xl font-bold text-blue-600">0</p>
+          <p class="text-xs sm:text-sm text-stone-500 mt-1">Destinations</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-4">
+      <!-- Country Filters -->
+      <div class="flex flex-wrap gap-2" id="country-filters">
+        <button data-country="All"
+          class="filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-stone-800 text-white transition-colors">All</button>
+        <button data-country="Thailand"
+          class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition-colors">Thailand</button>
+        <button data-country="Malaysia"
+          class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors">Malaysia</button>
+        <button data-country="Philippines"
+          class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors">Philippines</button>
+      </div>
+
+      <!-- Search & Toggle Row -->
+      <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+        <div class="relative flex-1 max-w-md">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input id="search-input" type="search" placeholder="Search locations, highlights, hotels…"
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none text-sm">
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <span id="toggle-label-left" class="text-sm font-medium text-stone-800">Show All Legs</span>
+          <button id="stays-toggle" role="switch" aria-checked="false"
+            class="toggle-track relative w-12 h-7 rounded-full bg-stone-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/40">
+            <span class="toggle-thumb absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow"></span>
+          </button>
+          <span id="toggle-label-right" class="text-sm text-stone-400">Stays Only</span>
+        </div>
+      </div>
+
+      <p id="results-count" class="text-sm text-stone-500"></p>
+    </div>
+
+    <!-- Timeline -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+      <div id="timeline" class="relative timeline-line space-y-2"></div>
+      <div id="empty-state" class="hidden text-center py-16">
+        <p class="text-stone-400 text-lg">No matching itinerary items found.</p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const PASSCODE = '2027';
+    const AUTH_KEY = 'trip_auth';
+    let TRIP_DATA = [];
+    async function loadTripData() {
+      try {
+        const response = await fetch('trip-data.json');
+        TRIP_DATA = await response.json();
+        renderTimeline();
+        updateMetrics();
+      } catch (error) {
+        console.error('Failed to load trip data:', error);
+      }
+    }
+
+    const COUNTRY_STYLES = {
+      Thailand: { badge: 'bg-emerald-100 text-emerald-800', dot: 'bg-emerald-500', ring: 'ring-emerald-200' },
+      Malaysia: { badge: 'bg-blue-100 text-blue-800', dot: 'bg-blue-500', ring: 'ring-blue-200' },
+      Philippines: { badge: 'bg-amber-100 text-amber-800', dot: 'bg-amber-500', ring: 'ring-amber-200' },
+    };
+
+    let state = { country: 'All', staysOnly: false, search: '', expandedIndex: 0 };
+
+    function isTransit(item) { return item.transport !== null; }
+
+    function escapeHtml(str) {
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    function highlightSearchText(highlight) {
+      return typeof highlight === 'string' ? highlight : highlight.text;
+    }
+
+    function renderHighlights(highlights, location) {
+      if (!highlights || !highlights.length) return '';
+      const cards = highlights.map(h => {
+        const text = highlightSearchText(h);
+        const searchQuery = encodeURIComponent(`${location} ${text}`);
+        const googleSearchUrl = `https://www.google.com/search?q=${searchQuery}`;
+
+        const imageHtml = h.image
+          ? `<a href="${googleSearchUrl}" target="_blank" rel="noopener noreferrer" class="block">
+               <img src="${escapeHtml(h.image)}" alt="${escapeHtml(text)}" class="w-full h-28 object-cover hover:opacity-90 transition-opacity cursor-pointer">
+             </a>`
+          : `<div class="w-full h-28 bg-gradient-to-br from-stone-100 to-stone-200 flex items-center justify-center">
+               <svg class="w-8 h-8 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+             </div>`;
+        return `
+          <div class="shrink-0 w-44 snap-start bg-white rounded-xl border border-stone-200 overflow-hidden shadow-sm">
+            ${imageHtml}
+            <p class="p-3 text-xs text-stone-600 leading-snug">${escapeHtml(text)}</p>
+          </div>`;
+      }).join('');
+      return `<div class="highlight-scroll flex gap-3 overflow-x-auto pb-1">${cards}</div>`;
+    }
+
+    function renderAccommodation(item) {
+      if (!item.accommodation_name) return '';
+      const bookingBtn = item.accommodation_link
+        ? `<a href="${escapeHtml(item.accommodation_link)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 mt-3 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-lg transition-colors" data-no-expand>View Booking ↗</a>`
+        : '';
+      return `
+        <div class="mt-5 p-4 bg-stone-50 rounded-xl border border-stone-200">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-lg bg-white border border-stone-200 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wide text-stone-400 mb-0.5">Accommodation</p>
+              <p class="font-semibold text-stone-800">${escapeHtml(item.accommodation_name)}</p>
+              ${item.accommodation_nights ? `<p class="text-sm text-stone-500 mt-0.5">${item.accommodation_nights} night${item.accommodation_nights !== 1 ? 's' : ''} booked</p>` : ''}
+              ${bookingBtn}
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function renderDetailsPanel(item, isExpanded) {
+      const panelClass = isExpanded ? 'expanded' : 'collapsed';
+      const transportDetail = item.transport
+        ? `<p class="text-sm font-medium text-stone-500 mb-4">${escapeHtml(item.transport)}</p>`
+        : '';
+      const focusBadge = item.focus
+        ? `<div class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-full shadow-sm mb-4">
+           <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
+           <span class="text-xs font-semibold text-emerald-700">${escapeHtml(item.focus)}</span>
+         </div>`
+        : '';
+      const summaryText = item.summary
+        ? `<p class="text-sm text-stone-600 leading-relaxed mb-4">${escapeHtml(item.summary)}</p>`
+        : '';
+
+      return `
+        <div class="details-panel ${panelClass} bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden relative">
+          <div class="p-5 sm:p-6 ${isExpanded ? 'min-w-[20rem]' : ''}">
+            ${focusBadge}
+            ${summaryText}
+            <p class="text-xs font-semibold uppercase tracking-wide text-stone-400 mb-3">Highlights</p>
+            ${transportDetail}
+            ${renderHighlights(item.highlights, item.location)}
+            ${renderAccommodation(item)}
+          </div>
+        </div>`;
+    }
+
+    function renderTripRow(item, index, styles) {
+      const isExpanded = state.expandedIndex === index;
+      const transit = isTransit(item);
+      const nightsLabel = item.nights != null
+        ? `<span class="inline-flex items-center gap-1 text-xs text-stone-500"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>${item.nights} night${item.nights !== 1 ? 's' : ''}</span>`
+        : '';
+      const datesLabel = item.dates
+        ? `<span class="inline-flex items-center gap-1 text-xs font-medium text-stone-600"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>${escapeHtml(item.dates)}</span>`
+        : '';
+      const typeBadge = transit
+        ? `<span class="px-2 py-0.5 rounded-full text-xs font-medium bg-stone-200 text-stone-600">Transit</span>`
+        : `<span class="px-2 py-0.5 rounded-full text-xs font-medium bg-stone-100 text-stone-600">Stay</span>`;
+      const transportPreview = transit
+        ? `<p class="transport-preview text-xs text-stone-500 mt-1 truncate${isExpanded ? ' hidden' : ''}">${escapeHtml(item.transport)}</p>`
+        : '';
+
+      const dotClass = transit
+        ? 'bg-stone-300 ring-4 ring-stone-100'
+        : `${styles.dot} ring-4 ${styles.ring}`;
+      const dotInner = transit
+        ? `<div class="w-1.5 h-1.5 rounded-full bg-white"></div>`
+        : '';
+
+      const cardBg = transit
+        ? 'bg-stone-100/80 border-dashed border-stone-300 hover:bg-stone-100'
+        : 'bg-white border-stone-200 hover:shadow-md';
+      const cardAccent = transit ? '' : '<div class="h-1 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400"></div>';
+      const activeRing = isExpanded ? 'ring-2 ring-emerald-400/50 shadow-md' : 'shadow-sm';
+      const cardWidth = 'w-full sm:w-80 shrink-0';
+
+      return `
+        <div class="relative pl-10 md:pl-12 trip-row" data-index="${index}">
+          <div class="absolute left-2.5 md:left-3 top-4 w-4 h-4 rounded-full ${dotClass} z-10 flex items-center justify-center">${dotInner}</div>
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch">
+            <button type="button"
+              class="location-card trip-row-toggle text-left ${cardWidth} rounded-xl border ${cardBg} ${activeRing} overflow-hidden transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+              data-index="${index}"
+              aria-expanded="${isExpanded}">
+              ${cardAccent}
+              <div class="p-2">
+                <div class="flex flex-wrap items-center gap-1 mb-1">
+                  <span class="px-1.5 py-0.5 rounded-full text-xs font-semibold ${styles.badge}">${escapeHtml(item.country)}</span>
+                  ${typeBadge}
+                </div>
+                <h3 class="text-xs font-bold text-stone-900 leading-tight">${escapeHtml(item.location)}</h3>
+                <div class="flex flex-wrap items-center gap-1.5 mt-1">${datesLabel}${nightsLabel}</div>
+                ${transportPreview}
+                <div class="expand-btn-text mt-1.5 w-full py-1 px-2 text-xs font-medium text-emerald-600 bg-emerald-50 hover:bg-emerald-100 rounded transition-colors text-center">
+                  ${isExpanded ? 'Hide highlights' : 'Click for highlights →'}
+                </div>
+              </div>
+            </button>
+            ${renderDetailsPanel(item, isExpanded)}
+          </div>
+        </div>`;
+    }
+
+    function computeMetrics() {
+      const stays = TRIP_DATA.filter(i => !isTransit(i));
+      const totalNights = stays.reduce((s, i) => s + (i.nights || 0), 0);
+      const destinations = stays.length;
+      return { totalNights, destinations };
+    }
+
+    function updateMetrics() {
+      const m = computeMetrics();
+      document.getElementById('metric-nights').textContent = m.totalNights;
+      document.getElementById('metric-destinations').textContent = m.destinations;
+    }
+
+    function filterItems() {
+      const q = state.search.toLowerCase();
+      return TRIP_DATA.filter(item => {
+        if (state.country !== 'All' && item.country !== state.country) return false;
+        if (state.staysOnly && isTransit(item)) return false;
+        if (q) {
+          const highlightText = (item.highlights || []).map(highlightSearchText).join(' ');
+          const haystack = [item.location, highlightText, item.accommodation_name, item.transport]
+            .filter(Boolean).join(' ').toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function countryLegCount() {
+      if (state.country === 'All') return TRIP_DATA.length;
+      return TRIP_DATA.filter(item => item.country === state.country).length;
+    }
+
+    function toggleExpand(index) {
+      state.expandedIndex = state.expandedIndex === index ? null : index;
+      updateExpandedRows();
+    }
+
+    function updateExpandedRows() {
+      document.querySelectorAll('.trip-row').forEach(row => {
+        const idx = Number(row.dataset.index);
+        const isExpanded = state.expandedIndex === idx;
+        const btn = row.querySelector('.trip-row-toggle');
+        const panel = row.querySelector('.details-panel');
+        if (!btn || !panel) return;
+
+        btn.classList.toggle('expanded', isExpanded);
+        btn.classList.toggle('ring-2', isExpanded);
+        btn.classList.toggle('ring-emerald-400/50', isExpanded);
+        btn.classList.toggle('shadow-md', isExpanded);
+        btn.classList.toggle('shadow-sm', !isExpanded);
+        btn.setAttribute('aria-expanded', String(isExpanded));
+
+        panel.classList.toggle('expanded', isExpanded);
+        panel.classList.toggle('collapsed', !isExpanded);
+
+        const expandBtnText = btn.querySelector('.expand-btn-text');
+        if (expandBtnText) {
+          expandBtnText.textContent = isExpanded ? 'Hide highlights' : 'Click for highlights →';
+        }
+
+        const transportPreview = btn.querySelector('.transport-preview');
+        if (transportPreview) {
+          transportPreview.classList.toggle('hidden', isExpanded);
+        }
+      });
+    }
+
+    function bindTimelineEvents() {
+      document.querySelectorAll('.trip-row-toggle').forEach(btn => {
+        btn.addEventListener('click', () => toggleExpand(Number(btn.dataset.index)));
+      });
+    }
+
+    function renderTimeline() {
+      const items = filterItems();
+      const timeline = document.getElementById('timeline');
+      const empty = document.getElementById('empty-state');
+      const countEl = document.getElementById('results-count');
+
+      if (state.expandedIndex !== null && state.expandedIndex >= items.length) {
+        state.expandedIndex = null;
+      }
+
+      countEl.textContent = `${items.length} of ${countryLegCount()} leg${countryLegCount() !== 1 ? 's' : ''} in ${state.country}`;
+
+      if (items.length === 0) {
+        timeline.innerHTML = '';
+        state.expandedIndex = null;
+        empty.classList.remove('hidden');
+        return;
+      }
+
+      empty.classList.add('hidden');
+      timeline.innerHTML = items.map((item, index) => {
+        const styles = COUNTRY_STYLES[item.country] || COUNTRY_STYLES.Thailand;
+        return renderTripRow(item, index, styles);
+      }).join('');
+      bindTimelineEvents();
+    }
+
+    function setCountryFilter(country) {
+      state.country = country;
+      state.expandedIndex = null;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        const c = btn.dataset.country;
+        const active = c === country;
+        btn.classList.toggle('active', active);
+        if (active) {
+          btn.className = 'filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-stone-800 text-white transition-colors';
+        } else {
+          const colors = { All: 'bg-stone-100 text-stone-700 hover:bg-stone-200', Thailand: 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200', Malaysia: 'bg-blue-100 text-blue-800 hover:bg-blue-200', Philippines: 'bg-amber-100 text-amber-800 hover:bg-amber-200' };
+          btn.className = `filter-btn px-4 py-2 rounded-full text-sm font-medium ${colors[c] || 'bg-stone-100 text-stone-700 hover:bg-stone-200'} transition-colors`;
+        }
+      });
+      renderTimeline();
+    }
+
+    function setStaysToggle(on) {
+      state.staysOnly = on;
+      state.expandedIndex = null;
+      const toggle = document.getElementById('stays-toggle');
+      const thumb = toggle.querySelector('.toggle-thumb');
+      toggle.setAttribute('aria-checked', on);
+      toggle.classList.toggle('bg-emerald-500', on);
+      toggle.classList.toggle('bg-stone-300', !on);
+      thumb.style.transform = on ? 'translateX(1.25rem)' : 'translateX(0)';
+      document.getElementById('toggle-label-left').classList.toggle('text-stone-800', !on);
+      document.getElementById('toggle-label-left').classList.toggle('font-medium', !on);
+      document.getElementById('toggle-label-left').classList.toggle('text-stone-400', on);
+      document.getElementById('toggle-label-right').classList.toggle('text-stone-800', on);
+      document.getElementById('toggle-label-right').classList.toggle('font-medium', on);
+      document.getElementById('toggle-label-right').classList.toggle('text-stone-400', !on);
+      renderTimeline();
+    }
+
+    /* ── Passcode ── */
+    function showApp() {
+      document.getElementById('passcode-modal').classList.add('hidden');
+      document.getElementById('app').classList.remove('hidden');
+      updateMetrics();
+    }
+
+    function getPasscodeValue() {
+      return [...document.querySelectorAll('.passcode-input')].map(i => i.value).join('');
+    }
+
+    function clearPasscodeInputs() {
+      document.querySelectorAll('.passcode-input').forEach(i => { i.value = ''; });
+      document.querySelector('.passcode-input').focus();
+    }
+
+    function attemptUnlock() {
+      const code = getPasscodeValue();
+      if (code.length !== 4) return;
+      if (code === PASSCODE) {
+        sessionStorage.setItem(AUTH_KEY, 'true');
+        document.getElementById('passcode-error').classList.add('hidden');
+        showApp();
+      } else {
+        document.getElementById('passcode-error').classList.remove('hidden');
+        clearPasscodeInputs();
+      }
+    }
+
+    function initPasscode() {
+      const inputs = document.querySelectorAll('.passcode-input');
+      inputs.forEach((input, idx) => {
+        input.addEventListener('input', () => {
+          input.value = input.value.replace(/\D/g, '').slice(0, 1);
+          document.getElementById('passcode-error').classList.add('hidden');
+          if (input.value && idx < 3) inputs[idx + 1].focus();
+          if (getPasscodeValue().length === 4) attemptUnlock();
+        });
+        input.addEventListener('keydown', e => {
+          if (e.key === 'Backspace' && !input.value && idx > 0) inputs[idx - 1].focus();
+          if (e.key === 'Enter') attemptUnlock();
+        });
+        input.addEventListener('paste', e => {
+          e.preventDefault();
+          const pasted = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 4);
+          pasted.split('').forEach((ch, i) => { if (inputs[i]) inputs[i].value = ch; });
+          if (pasted.length === 4) attemptUnlock();
+          else if (pasted.length) inputs[Math.min(pasted.length, 3)].focus();
+        });
+      });
+      document.getElementById('passcode-submit').addEventListener('click', attemptUnlock);
+    }
+
+    /* ── Init ── */
+    function init() {
+      initPasscode();
+      loadTripData();
+
+      if (sessionStorage.getItem(AUTH_KEY) === 'true') {
+        showApp();
+      } else {
+        document.querySelector('.passcode-input').focus();
+      }
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => setCountryFilter(btn.dataset.country));
+      });
+
+      document.getElementById('stays-toggle').addEventListener('click', () => {
+        setStaysToggle(!state.staysOnly);
+      });
+
+      document.getElementById('search-input').addEventListener('input', e => {
+        state.search = e.target.value;
+        state.expandedIndex = null;
+        renderTimeline();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,706 @@
+[
+  {
+    "country": "Transit",
+    "dates": "Fri 12 – Sat 13 Feb 2027",
+    "location": "London (LHR) ➔ Chiang Mai (CNX) via Bangkok (BKK)",
+    "nights": null,
+    "focus": null,
+    "summary": "Outbound journey on Thai Airways from London Heathrow (LHR T2) to Chiang Mai (CNX) with a 3h 5m layover at Bangkok Suvarnabhumi (BKK). Total travel time: 15h 50m.",
+    "highlights": [
+      {
+        "text": "LHR 21:35 (12th Feb) ➔ BKK 16:00 (13th)",
+        "image": "./images/lhr_2135_12th_feb_bkk_1600_13th.jpg"
+      },
+      {
+        "text": "3h 05m Layover at Bangkok Suvarnabhumi (BKK)",
+        "image": "./images/3h_05m_layover_at_bangkok_suvarnabhumi_bkk.jpg"
+      },
+      {
+        "text": "BKK 19:05 ➔ CNX 20:25 13th Feb",
+        "image": "./images/bkk_1905_cnx_2025_13th_feb.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "Flight ✈️ | Thai Airways (TG917 & TG120)"
+  },
+  {
+    "country": "Thailand",
+    "dates": "Sat 13 – Thu 18 Feb 2027",
+    "location": "Chiang Mai, Thailand",
+    "nights": 5,
+    "focus": "culture & history",
+    "summary": "Nestled in the misty mountains of Northern Thailand, the former Lanna Kingdom capital offers a relaxed rhythm defined by ancient walled ruins, serene jungle sanctuaries, artisanal craft traditions, and one of Southeast Asia's most celebrated regional food scenes.",
+    "highlights": [
+      {
+        "text": "Wat Phra That Doi Suthep",
+        "image": "./images/wat_phra_that_doi_suthep.jpg"
+      },
+      {
+        "text": "Wat Chedi Luang",
+        "image": "./images/wat_chedi_luang.jpg"
+      },
+      {
+        "text": "Wat Pha Lat",
+        "image": "./images/wat_pha_lat.jpg"
+      },
+      {
+        "text": "Sunday Walking Street",
+        "image": "./images/sunday_walking_street.jpg"
+      },
+      {
+        "text": "Khao Soi",
+        "image": "./images/khao_soi.jpg"
+      }
+    ],
+    "accommodation_name": "The Opium Chiang Mai",
+    "accommodation_nights": 5,
+    "accommodation_link": "https://www.booking.com/Share-sHKr5eF",
+    "transport": null
+  },
+  {
+    "country": "Thailand",
+    "dates": "Thu 18 Feb 2027",
+    "location": "Chiang Mai (CNX) ➔ Bangkok (Krung Thep Aphiwat)",
+    "nights": 1,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "CNR Sleeper Train",
+        "image": "./images/cnr_sleeper_train.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "SRT #10 Special Express Train (~13h)"
+  },
+  {
+    "country": "Thailand",
+    "dates": "Fri 19 – Mon 22 Feb 2027",
+    "location": "Bangkok & Ayutthaya, Thailand",
+    "nights": 3,
+    "focus": "culture & history",
+    "summary": "A dynamic contrast of Thailand's imperial past and high-octane present. Experience Bangkok's sensory frenzy of riverways, golden spires, and sensory markets before taking a short rail journey north to the majestic stone ruins of the 14th-century Siamese empire.",
+    "highlights": [
+      {
+        "text": "Grand Palace & Wat Pho",
+        "image": "./images/grand_palace_wat_pho.jpg"
+      },
+      {
+        "text": "Chao Phraya Express Boat",
+        "image": "./images/chao_phraya_express_boat.jpg"
+      },
+      {
+        "text": "Ayutthaya Historical Park",
+        "image": "./images/ayutthaya_historical_park.jpg"
+      },
+      {
+        "text": "Yaowarat Chinatown",
+        "image": "./images/yaowarat_chinatown.jpg"
+      }
+    ],
+    "accommodation_name": "True Siam Rangnam",
+    "accommodation_nights": 3,
+    "accommodation_link": "https://www.booking.com/Share-PI384v",
+    "transport": null
+  },
+  {
+    "country": "Thailand",
+    "dates": "Mon 22 Feb 2027",
+    "location": "Bangkok ➔ Prachuap Khiri Khan / Kui Buri",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "SRT Southern Railway",
+        "image": "./images/srt_southern_railway.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "SRT Daytime Express Train (~4h 30m) 🚆"
+  },
+  {
+    "country": "Thailand",
+    "dates": "Mon 22 – Wed 24 Feb 2027",
+    "location": "Kui Buri & Prachuap Khiri Khan, Thailand",
+    "nights": 2,
+    "focus": "nature",
+    "summary": "An uncrowded, slow-paced coastal enclave where open savannah meets the Gulf of Thailand. Famed for holding Thailand's best wild elephant viewing opportunities alongside sleepy seaside fishing communities and gentle coastal wildlife.",
+    "highlights": [
+      {
+        "text": "Kui Buri Elephant Safari",
+        "image": "./images/kui_buri_elephant_safari.jpg"
+      },
+      {
+        "text": "Ao Manao",
+        "image": "./images/ao_manao.jpg"
+      },
+      {
+        "text": "Prachuap Bay Promenade",
+        "image": "./images/prachuap_bay_promenade.jpg"
+      }
+    ],
+    "accommodation_name": "Prachuap Beach Hotel",
+    "accommodation_nights": 2,
+    "accommodation_link": "https://www.booking.com/Share-rZpzij",
+    "transport": null
+  },
+  {
+    "country": "Thailand",
+    "dates": "Wed 24 Feb 2027",
+    "location": "Prachuap Khiri Khan ➔ Trang Railway Station",
+    "nights": 1,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "SRT Sleeper Train",
+        "image": "./images/srt_sleeper_train.jpg"
+      },
+      {
+        "text": "Trang Station",
+        "image": "./images/trang_station.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "SRT #83 Overnight Sleeper Train (~8h) 🚆"
+  },
+  {
+    "country": "Thailand",
+    "dates": "Thu 25 Feb 2027",
+    "location": "Trang Station ➔ Khuan Tung Ku Pier ➔ Koh Muk / Koh Kradan",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "Khuan Tung Ku Pier",
+        "image": null
+      },
+      {
+        "text": "Thai Longtail Boat",
+        "image": "./images/thai_longtail_boat.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "Private Car + Longtail Boat (~1h 15m total) 🚙 🚤"
+  },
+  {
+    "country": "Thailand",
+    "dates": "Thu 25 Feb – Mon 1 Mar 2027",
+    "location": "Trang Islands (Koh Muk & Koh Kradan), Thailand",
+    "nights": 4,
+    "focus": "relaxation",
+    "summary": "A peaceful slice of old Southern Thailand untouched by mass tourism. Defined by motorless, road-free islands, powder-soft coral sand, vivid turquoise waters, and secret sea-cave lagoons tucked beneath dramatic limestone cliffs.",
+    "highlights": [
+      {
+        "text": "Emerald Cave (Tham Morakot)",
+        "image": "./images/emerald_cave_tham_morakot.jpg"
+      },
+      {
+        "text": "Koh Kradan Reef",
+        "image": "./images/koh_kradan_reef.jpg"
+      },
+      {
+        "text": "Koh Muk Beachfront Dining",
+        "image": "./images/koh_muk_beachfront_dining.jpg"
+      }
+    ],
+    "accommodation_name": "Mook Montra Resort",
+    "accommodation_nights": 4,
+    "accommodation_link": "https://www.booking.com/Share-Aw1TAf",
+    "transport": null
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Mon 1 Mar 2027",
+    "location": "Trang Islands ➔ Koh Lipe ➔ Langkawi",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "Koh Lipe Beach",
+        "image": "./images/koh_lipe_beach.jpg"
+      },
+      {
+        "text": "Pattaya Beach Immigration",
+        "image": null
+      },
+      {
+        "text": "Langkawi Ferry Terminal",
+        "image": "./images/langkawi_ferry_terminal.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "Island-Hopper Ferry (~4h total on water) 🚤"
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Mon 1 – Thu 4 Mar 2027",
+    "location": "Langkawi, Malaysia",
+    "nights": 3,
+    "focus": "scenery",
+    "summary": "A lush tropical archipelago in the Andaman Sea where ancient rainforests drop into turquoise bays. Famed for its UNESCO Geopark status, soaring cable car views over ancient karst formations, and laid-back duty-free island living.",
+    "highlights": [
+      {
+        "text": "Langkawi SkyCab",
+        "image": "./images/langkawi_skycab.jpg"
+      },
+      {
+        "text": "Kilim Geoforest Park",
+        "image": "./images/kilim_geoforest_park.jpg"
+      },
+      {
+        "text": "Telaga Tujuh Waterfall",
+        "image": "./images/telaga_tujuh_waterfall.jpg"
+      },
+      {
+        "text": "Pantai Cenang Sunset",
+        "image": "./images/pantai_cenang_sunset.jpg"
+      },
+      {
+        "text": "Eagle Square (Dataran Lang)",
+        "image": "./images/eagle_square_dataran_lang.jpg"
+      },
+      {
+        "text": "Tanjung Rhu Beach",
+        "image": "./images/tanjung_rhu_beach.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": null
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Thu 4 Mar 2027",
+    "location": "Langkawi ➔ Kuala Kedah Pier ➔ Butterworth ➔ George Town",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "Kuala Kedah Ferry",
+        "image": "./images/kuala_kedah_ferry.jpg"
+      },
+      {
+        "text": "KTM Komuter",
+        "image": "./images/ktm_komuter.jpg"
+      },
+      {
+        "text": "Penang Ferry",
+        "image": null
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "Ferry + KTM Komuter Train + Ferry (~2h 30m total) 🚤 🚆 🚤"
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Thu 4 – Sun 7 Mar 2027",
+    "location": "Penang (George Town), Malaysia",
+    "nights": 3,
+    "focus": "food",
+    "summary": "Southeast Asia's undeniable street food Mecca. A vibrant UNESCO-listed tapestry of colonial shophouses, atmospheric clan jetties, and interactive street art where Peranakan, Malay, Chinese, and Indian culinary heritage collides.",
+    "highlights": [
+      {
+        "text": "Kek Lok Si Temple",
+        "image": "./images/kek_lok_si_temple.jpg"
+      },
+      {
+        "text": "Char Kway Teow",
+        "image": "./images/char_kway_teow.jpg"
+      },
+      {
+        "text": "Penang Assam Laksa",
+        "image": "./images/penang_assam_laksa.jpg"
+      },
+      {
+        "text": "George Town Heritage Shophouses",
+        "image": "./images/george_town_heritage_shophouses.jpg"
+      },
+      {
+        "text": "Chew Jetty & Street Art",
+        "image": "./images/chew_jetty_street_art.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": null
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Sun 7 Mar 2027",
+    "location": "Butterworth (Penang) ➔ Ipoh",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "KTM ETS Express Train",
+        "image": "./images/ktm_ets_express_train.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "KTM ETS Electric Train Service (~1h 40m) 🚆"
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Sun 7 – Tue 9 Mar 2027",
+    "location": "Ipoh, Malaysia",
+    "nights": 2,
+    "focus": "food",
+    "summary": "An underrated culinary stronghold cradled by towering limestone karsts. This former tin-mining hub pairs vintage coffee culture and celebrated dim sum traditions with dramatic cave temples tucked directly into the cliff faces.",
+    "highlights": [
+      {
+        "text": "Ipoh Dim Sum",
+        "image": "./images/ipoh_dim_sum.jpg"
+      },
+      {
+        "text": "Ipoh White Coffee",
+        "image": "./images/ipoh_white_coffee.jpg"
+      },
+      {
+        "text": "Ipoh Bean Sprout Chicken",
+        "image": "./images/ipoh_bean_sprout_chicken.jpg"
+      },
+      {
+        "text": "Kek Lok Tong & Tasik Cermin",
+        "image": "./images/kek_lok_tong_tasik_cermin.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": null
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Tue 9 Mar 2027",
+    "location": "Ipoh ➔ Kuala Lumpur (KL Sentral)",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "KTM ETS Gold Service",
+        "image": "./images/ktm_ets_gold_service.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "KTM ETS Gold/Platinum Train (~2h 15m) 🚆"
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Tue 9 – Fri 12 Mar 2027",
+    "location": "Kuala Lumpur, Malaysia",
+    "nights": 3,
+    "focus": "culture & history",
+    "summary": "A futuristic metropolis anchored in deep multi-ethnic roots. Futuristic glass-and-steel skyscrapers rise alongside colorful Hindu shrines, historic mosques, sprawling night markets, and sophisticated rooftop lounges.",
+    "highlights": [
+      {
+        "text": "Petronas Twin Towers",
+        "image": "./images/petronas_twin_towers.jpg"
+      },
+      {
+        "text": "Batu Caves",
+        "image": "./images/batu_caves.jpg"
+      },
+      {
+        "text": "Jalan Alor Night Market",
+        "image": "./images/jalan_alor_night_market.jpg"
+      },
+      {
+        "text": "Kuala Lumpur Rooftop Bar",
+        "image": "./images/kuala_lumpur_rooftop_bar.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": null
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Fri 12 Mar 2027",
+    "location": "KL ➔ Kuala Tembeling Jetty ➔ Taman Negara",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "Kuala Tembeling Jetty",
+        "image": null
+      },
+      {
+        "text": "Tembeling River Longboat",
+        "image": "./images/tembeling_river_longboat.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "Flat Private Transfer + River Longboat (~4h total) 🚙 🚤"
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Fri 12 – Mon 15 Mar 2027",
+    "location": "Taman Negara National Park, Malaysia",
+    "nights": 3,
+    "focus": "nature",
+    "summary": "One of the planet's oldest primary rainforests, dating back 130 million years. An immersive wilderness expedition defined by wooden riverboat journeys, elevated jungle canopy walkways, and guided night treks tracking native wildlife.",
+    "highlights": [
+      {
+        "text": "Malayan Tapir",
+        "image": "./images/malayan_tapir.jpg"
+      },
+      {
+        "text": "Taman Negara Canopy Walkway",
+        "image": "./images/taman_negara_canopy_walkway.jpg"
+      },
+      {
+        "text": "Great Argus Pheasant",
+        "image": "./images/great_argus_pheasant.jpg"
+      },
+      {
+        "text": "Taman Negara Night Jungle Walk",
+        "image": "./images/taman_negara_night_jungle_walk.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": null
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Mon 15 Mar 2027",
+    "location": "Kuala Tembeling ➔ Kuala Lumpur / KLIA",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "Tembeling River Return",
+        "image": "./images/tembeling_river_return.jpg"
+      },
+      {
+        "text": "Kuala Lumpur International Airport (KLIA)",
+        "image": null
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "River Boat + Flat Private Transfer (~4h total) 🚙 🚤"
+  },
+  {
+    "country": "Malaysia",
+    "dates": "Mon 15 – Tue 16 Mar 2027",
+    "location": "Kuala Lumpur (Transit Buffer Night)",
+    "nights": 1,
+    "focus": "culture & history",
+    "summary": "Morning connection onward to the Philippines.",
+    "highlights": [
+      {
+        "text": "Lot 10 Hutong Food Court",
+        "image": "./images/lot_10_hutong_food_court.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": null
+  },
+  {
+    "country": "Philippines",
+    "dates": "Tue 16 Mar 2027",
+    "location": "KUL ➔ CEB ➔ Pier 1 ➔ Bohol",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "Mactan-Cebu Airport",
+        "image": null
+      },
+      {
+        "text": "Cebu Pier 1",
+        "image": null
+      },
+      {
+        "text": "OceanJet Fast Ferry",
+        "image": "./images/oceanjet_fast_ferry.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "Direct Flight + Grab Taxi + OceanJet Ferry (~6h 30m total) ✈️ 🚤"
+  },
+  {
+    "country": "Philippines",
+    "dates": "Tue 16 – Sun 21 Mar 2027",
+    "location": "Bohol (Panglao & Interior), Philippines",
+    "nights": 5,
+    "focus": "nature",
+    "summary": "An island of eco-adventures combining unique geological wonders and endangered endemic wildlife on land with world-class, easily accessible marine life right off the shore.",
+    "highlights": [
+      {
+        "text": "Chocolate Hills",
+        "image": "./images/chocolate_hills.jpg"
+      },
+      {
+        "text": "Philippine Tarsier Sanctuary",
+        "image": "./images/philippine_tarsier_sanctuary.jpg"
+      },
+      {
+        "text": "Loboc River Paddleboarding",
+        "image": "./images/loboc_river_paddleboarding.jpg"
+      },
+      {
+        "text": "Napaling Reef Sardine Run",
+        "image": "./images/napaling_reef_sardine_run.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": null
+  },
+  {
+    "country": "Philippines",
+    "dates": "Sun 21 Mar 2027",
+    "location": "Tagbilaran (Bohol) ➔ Siquijor Port",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "Tagbilaran Fast Ferry",
+        "image": "./images/tagbilaran_fast_ferry.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "OceanJet Fast Ferry (~1h 30m) 🚤"
+  },
+  {
+    "country": "Philippines",
+    "dates": "Sun 21 – Fri 26 Mar 2027",
+    "location": "Siquijor Island, Philippines",
+    "nights": 5,
+    "focus": "relaxation",
+    "summary": "Long known in local folklore as the 'Isla del Fuego' (Island of Fire). A laid-back, scooter-friendly tropical haven famous for multi-tiered jungle waterfalls, untouched coral gardens, and incredible coastlines.",
+    "highlights": [
+      {
+        "text": "Old Enchanted Balete Tree",
+        "image": "./images/old_enchanted_balete_tree.jpg"
+      },
+      {
+        "text": "Cambugahay Falls",
+        "image": "./images/cambugahay_falls.jpg"
+      },
+      {
+        "text": "Tubod Marine Sanctuary",
+        "image": "./images/tubod_marine_sanctuary.jpg"
+      },
+      {
+        "text": "Paliton Beach Sunset",
+        "image": "./images/paliton_beach_sunset.jpg"
+      },
+      {
+        "text": "Cantabon Cave",
+        "image": "./images/cantabon_cave.jpg"
+      },
+      {
+        "text": "Siquijor Coastal Road",
+        "image": "./images/siquijor_coastal_road.jpg"
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": null
+  },
+  {
+    "country": "Philippines",
+    "dates": "Fri 26 Mar 2027",
+    "location": "Siquijor ➔ Tagbilaran / Cebu Pier 1 ➔ Mactan Airport",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "Siquijor Ferry",
+        "image": "./images/siquijor_ferry.jpg"
+      },
+      {
+        "text": "Mactan Airport Transfer",
+        "image": null
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "OceanJet Fast Ferry via Tagbilaran (~3h 30m total) 🚤"
+  },
+  {
+    "country": "Philippines",
+    "dates": "Fri 26 – Sat 27 Mar 2027",
+    "location": "Mactan, Cebu (Airport Buffer Night)",
+    "nights": 1,
+    "focus": "relaxation",
+    "summary": "Stay near Mactan-Cebu International Airport, before flight home.",
+    "highlights": [
+      {
+        "text": "Mactan Seafood Dinner",
+        "image": "./images/mactan_seafood_dinner.jpg"
+      }
+    ],
+    "accommodation_name": "Lapu-Lapu Cottages",
+    "accommodation_nights": 1,
+    "accommodation_link": "https://www.booking.com/Share-omLP1R",
+    "transport": null
+  },
+  {
+    "country": "Philippines",
+    "dates": "Sat 27 Mar 2027",
+    "location": "Fly out to London ✈️",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [
+      {
+        "text": "Mactan-Cebu Airport Terminal 2",
+        "image": null
+      }
+    ],
+    "accommodation_name": null,
+    "accommodation_nights": null,
+    "accommodation_link": null,
+    "transport": "Flight ✈️"
+  }
+]
