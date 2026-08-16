@@ -98,15 +98,19 @@
     "location": "Bangkok & Ayutthaya, Thailand",
     "nights": 3,
     "focus": "culture & history",
-    "summary": "A dynamic contrast of Thailand's imperial past and high-octane present. Experience Bangkok's sensory frenzy of riverways, golden spires, and sensory markets before taking a short rail journey north to the majestic stone ruins of the 14th-century Siamese empire.",
+    "summary": "A dynamic contrast of Thailand's imperial past and high-octane present. Experience Bangkok's sensory frenzy of golden spires, riverfront temples, and night markets before taking a short rail journey north to the majestic stone ruins of the 14th-century Siamese empire.",
     "highlights": [
       {
         "text": "Grand Palace & Wat Pho",
         "image": "./images/grand_palace_wat_pho.jpg"
       },
       {
-        "text": "Chao Phraya Express Boat",
-        "image": "./images/chao_phraya_express_boat.jpg"
+        "text": "Wat Arun (Temple of Dawn)",
+        "image": "./images/wat_arun_temple_of_dawn.jpg"
+      },
+      {
+        "text": "ICONSIAM & SookSiam Floating Market",
+        "image": "./images/iconsiam_sooksiam_floating_market.jpg"
       },
       {
         "text": "Ayutthaya Historical Park",
