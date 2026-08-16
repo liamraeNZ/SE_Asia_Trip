@@ -23,6 +23,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
     rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
     .timeline-line::before {
       content: '';
@@ -242,6 +243,33 @@
       Philippines: { badge: 'bg-amber-100 text-amber-800', dot: 'bg-amber-500', ring: 'ring-amber-200' },
     };
 
+    const TRANSPORT_ICONS = {
+      flight: {
+        icon: `<i class="ph ph-airplane text-lg"></i>`,
+        label: 'Flight'
+      },
+      train: {
+        icon: `<i class="ph ph-train text-lg"></i>`,
+        label: 'Train'
+      },
+      ferry: {
+        icon: `<i class="ph ph-ferry text-lg"></i>`,
+        label: 'Ferry'
+      },
+      boat: {
+        icon: `<i class="ph ph-boat text-lg"></i>`,
+        label: 'Boat'
+      },
+      car: {
+        icon: `<i class="ph ph-car text-lg"></i>`,
+        label: 'Car'
+      },
+      bus: {
+        icon: `<i class="ph ph-bus text-lg"></i>`,
+        label: 'Bus'
+      }
+    };
+
     let state = { country: 'All', staysOnly: false, search: '', expandedIndex: 0 };
 
     function isTransit(item) { return item.transport !== null; }
@@ -254,6 +282,30 @@
 
     function highlightSearchText(highlight) {
       return typeof highlight === 'string' ? highlight : highlight.text;
+    }
+
+    function renderTransportTimeline(item) {
+      if (!item.transport_methods || !item.transport_methods.length) return '';
+      
+      const icons = item.transport_methods.map((method, idx) => {
+        const transportData = TRANSPORT_ICONS[method] || { icon: '', label: method };
+        const isLast = idx === item.transport_methods.length - 1;
+        
+        return `
+          <div class="flex items-center gap-1">
+            <div class="w-6 h-6 rounded-full bg-stone-100 border border-stone-200 flex items-center justify-center text-stone-600" title="${transportData.label}">
+              ${transportData.icon}
+            </div>
+            ${!isLast ? '<div class="w-3 h-0.5 bg-stone-300"></div>' : ''}
+          </div>
+        `;
+      }).join('');
+
+      return `
+        <div class="flex items-center gap-1 mt-2">
+          ${icons}
+        </div>
+      `;
     }
 
     function renderHighlights(highlights, location) {
@@ -303,7 +355,10 @@
     function renderDetailsPanel(item, isExpanded) {
       const panelClass = isExpanded ? 'expanded' : 'collapsed';
       const transportDetail = item.transport
-        ? `<p class="text-sm font-medium text-stone-500 mb-4">${escapeHtml(item.transport)}</p>`
+        ? `<div class="mb-4">
+            <p class="text-sm font-medium text-stone-700">${escapeHtml(item.transport)}</p>
+            ${renderTransportTimeline(item)}
+           </div>`
         : '';
       const focusBadge = item.focus
         ? `<div class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-full shadow-sm mb-4">
@@ -341,7 +396,20 @@
         ? `<span class="px-2 py-0.5 rounded-full text-xs font-medium bg-stone-200 text-stone-600">Transit</span>`
         : `<span class="px-2 py-0.5 rounded-full text-xs font-medium bg-stone-100 text-stone-600">Stay</span>`;
       const transportPreview = transit
-        ? `<p class="transport-preview text-xs text-stone-500 mt-1 truncate${isExpanded ? ' hidden' : ''}">${escapeHtml(item.transport)}</p>`
+        ? `<div class="transport-preview mt-1">
+            <p class="text-xs text-stone-500 truncate">${escapeHtml(item.transport)}</p>
+            ${renderTransportTimeline(item)}
+           </div>`
+        : '';
+      
+      const transportIcon = (isExpanded && transit && item.transport_methods && item.transport_methods.length > 0)
+        ? (() => {
+            const firstMethod = item.transport_methods[0];
+            const transportData = TRANSPORT_ICONS[firstMethod] || { icon: '', label: firstMethod };
+            return `<div class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white border border-stone-200 flex items-center justify-center text-stone-600 shadow-sm" title="${transportData.label}">
+              ${transportData.icon}
+            </div>`;
+          })()
         : '';
 
       const dotClass = transit
@@ -363,10 +431,11 @@
           <div class="absolute left-2.5 md:left-3 top-4 w-4 h-4 rounded-full ${dotClass} z-10 flex items-center justify-center">${dotInner}</div>
           <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch">
             <button type="button"
-              class="location-card trip-row-toggle text-left ${cardWidth} rounded-xl border ${cardBg} ${activeRing} overflow-hidden transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+              class="location-card trip-row-toggle text-left relative ${cardWidth} rounded-xl border ${cardBg} ${activeRing} overflow-hidden transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
               data-index="${index}"
               aria-expanded="${isExpanded}">
               ${cardAccent}
+              ${transportIcon}
               <div class="p-2">
                 <div class="flex flex-wrap items-center gap-1 mb-1">
                   <span class="px-1.5 py-0.5 rounded-full text-xs font-semibold ${styles.badge}">${escapeHtml(item.country)}</span>
@@ -444,11 +513,6 @@
         const expandBtnText = btn.querySelector('.expand-btn-text');
         if (expandBtnText) {
           expandBtnText.textContent = isExpanded ? 'Hide highlights' : 'Click for highlights →';
-        }
-
-        const transportPreview = btn.querySelector('.transport-preview');
-        if (transportPreview) {
-          transportPreview.classList.toggle('hidden', isExpanded);
         }
       });
     }

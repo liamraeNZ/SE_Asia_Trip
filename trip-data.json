@@ -1,6 +1,6 @@
 [
   {
-    "country": "Transit",
+    "country": "UK",
     "dates": "Fri 12 – Sat 13 Feb 2027",
     "location": "London (LHR) ➔ Chiang Mai (CNX) via Bangkok (BKK)",
     "nights": null,
@@ -23,7 +23,10 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "Flight ✈️ | Thai Airways (TG917 & TG120)"
+    "transport": "Thai Airways (TG917 & TG120)",
+    "transport_methods": [
+      "flight"
+    ]
   },
   {
     "country": "Thailand",
@@ -57,12 +60,13 @@
     "accommodation_name": "The Opium Chiang Mai",
     "accommodation_nights": 5,
     "accommodation_link": "https://www.booking.com/Share-sHKr5eF",
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Thailand",
     "dates": "Thu 18 Feb 2027",
-    "location": "Chiang Mai (CNX) ➔ Bangkok (Krung Thep Aphiwat)",
+    "location": "Overnight train from Chiang Mai to Bangkok",
     "nights": 1,
     "focus": null,
     "summary": null,
@@ -70,12 +74,23 @@
       {
         "text": "CNR Sleeper Train",
         "image": "./images/cnr_sleeper_train.jpg"
+      },
+      {
+        "text": "1st Class Private Cabin",
+        "image": "./images/1st_class_private_cabin.jpg"
+      },
+      {
+        "text": "2nd Class Air-Con Sleeper",
+        "image": "./images/2nd_class_air_con_sleeper.jpg"
       }
     ],
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "SRT #10 Special Express Train (~13h)"
+    "transport": "SRT #10 Special Express Train (~13h)",
+    "transport_methods": [
+      "train"
+    ]
   },
   {
     "country": "Thailand",
@@ -105,7 +120,8 @@
     "accommodation_name": "True Siam Rangnam",
     "accommodation_nights": 3,
     "accommodation_link": "https://www.booking.com/Share-PI384v",
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Thailand",
@@ -123,7 +139,10 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "SRT Daytime Express Train (~4h 30m) 🚆"
+    "transport": "SRT Daytime Express Train (~4h 30m)",
+    "transport_methods": [
+      "train"
+    ]
   },
   {
     "country": "Thailand",
@@ -149,12 +168,13 @@
     "accommodation_name": "Prachuap Beach Hotel",
     "accommodation_nights": 2,
     "accommodation_link": "https://www.booking.com/Share-rZpzij",
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Thailand",
     "dates": "Wed 24 Feb 2027",
-    "location": "Prachuap Khiri Khan ➔ Trang Railway Station",
+    "location": "Overnight Train from Prachuap Khiri Khan to Trang",
     "nights": 1,
     "focus": null,
     "summary": null,
@@ -171,7 +191,10 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "SRT #83 Overnight Sleeper Train (~8h) 🚆"
+    "transport": "SRT #83 Overnight Sleeper Train (~8h)",
+    "transport_methods": [
+      "train"
+    ]
   },
   {
     "country": "Thailand",
@@ -193,7 +216,11 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "Private Car + Longtail Boat (~1h 15m total) 🚙 🚤"
+    "transport": "Private Car + Longtail Boat (~1h 15m total)",
+    "transport_methods": [
+      "car",
+      "boat"
+    ]
   },
   {
     "country": "Thailand",
@@ -219,7 +246,8 @@
     "accommodation_name": "Mook Montra Resort",
     "accommodation_nights": 4,
     "accommodation_link": "https://www.booking.com/Share-Aw1TAf",
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Malaysia",
@@ -245,7 +273,10 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "Island-Hopper Ferry (~4h total on water) 🚤"
+    "transport": "Island-Hopper Ferry (~4h total on water)",
+    "transport_methods": [
+      "ferry"
+    ]
   },
   {
     "country": "Malaysia",
@@ -283,7 +314,8 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Malaysia",
@@ -309,7 +341,11 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "Ferry + KTM Komuter Train + Ferry (~2h 30m total) 🚤 🚆 🚤"
+    "transport": "Ferry + KTM Komuter Train + Ferry (~2h 30m total)",
+    "transport_methods": [
+      "ferry",
+      "train"
+    ]
   },
   {
     "country": "Malaysia",
@@ -343,7 +379,8 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Malaysia",
@@ -361,7 +398,10 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "KTM ETS Electric Train Service (~1h 40m) 🚆"
+    "transport": "KTM ETS Electric Train Service (~1h 40m)",
+    "transport_methods": [
+      "train"
+    ]
   },
   {
     "country": "Malaysia",
@@ -391,7 +431,8 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Malaysia",
@@ -409,7 +450,10 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "KTM ETS Gold/Platinum Train (~2h 15m) 🚆"
+    "transport": "KTM ETS Gold/Platinum Train (~2h 15m)",
+    "transport_methods": [
+      "train"
+    ]
   },
   {
     "country": "Malaysia",
@@ -439,7 +483,8 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Malaysia",
@@ -461,7 +506,11 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "Flat Private Transfer + River Longboat (~4h total) 🚙 🚤"
+    "transport": "Flat Private Transfer + River Longboat (~4h total)",
+    "transport_methods": [
+      "car",
+      "boat"
+    ]
   },
   {
     "country": "Malaysia",
@@ -491,7 +540,8 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Malaysia",
@@ -513,7 +563,11 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "River Boat + Flat Private Transfer (~4h total) 🚙 🚤"
+    "transport": "River Boat + Flat Private Transfer (~4h total)",
+    "transport_methods": [
+      "boat",
+      "car"
+    ]
   },
   {
     "country": "Malaysia",
@@ -531,7 +585,8 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Philippines",
@@ -557,7 +612,12 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "Direct Flight + Grab Taxi + OceanJet Ferry (~6h 30m total) ✈️ 🚤"
+    "transport": "Direct Flight + Grab Taxi + OceanJet Ferry (~6h 30m total)",
+    "transport_methods": [
+      "flight",
+      "car",
+      "ferry"
+    ]
   },
   {
     "country": "Philippines",
@@ -587,7 +647,8 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Philippines",
@@ -605,7 +666,10 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "OceanJet Fast Ferry (~1h 30m) 🚤"
+    "transport": "OceanJet Fast Ferry (~1h 30m)",
+    "transport_methods": [
+      "ferry"
+    ]
   },
   {
     "country": "Philippines",
@@ -643,7 +707,8 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Philippines",
@@ -665,7 +730,10 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "OceanJet Fast Ferry via Tagbilaran (~3h 30m total) 🚤"
+    "transport": "OceanJet Fast Ferry via Tagbilaran (~3h 30m total)",
+    "transport_methods": [
+      "ferry"
+    ]
   },
   {
     "country": "Philippines",
@@ -683,7 +751,8 @@
     "accommodation_name": "Lapu-Lapu Cottages",
     "accommodation_nights": 1,
     "accommodation_link": "https://www.booking.com/Share-omLP1R",
-    "transport": null
+    "transport": null,
+    "transport_methods": []
   },
   {
     "country": "Philippines",
@@ -701,6 +770,9 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "Flight ✈️"
+    "transport": "International Flight",
+    "transport_methods": [
+      "flight"
+    ]
   }
 ]
