@@ -130,7 +130,7 @@
   {
     "country": "Thailand",
     "dates": "Mon 22 Feb 2027",
-    "location": "Bangkok ➔ Prachuap Khiri Khan / Kui Buri",
+    "location": "Bangkok ➔ Hua Hin",
     "nights": null,
     "focus": null,
     "summary": null,
@@ -143,7 +143,7 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "SRT Daytime Express Train (~4h 30m)",
+    "transport": "SRT #31 Special Express CNR Train (~3h 30m)",
     "transport_methods": [
       "train"
     ]
@@ -151,34 +151,34 @@
   {
     "country": "Thailand",
     "dates": "Mon 22 – Wed 24 Feb 2027",
-    "location": "Kui Buri & Prachuap Khiri Khan, Thailand",
+    "location": "Hua Hin & Kui Buri, Thailand",
     "nights": 2,
     "focus": "nature",
-    "summary": "An uncrowded, slow-paced coastal enclave where open savannah meets the Gulf of Thailand. Famed for holding Thailand's best wild elephant viewing opportunities alongside sleepy seaside fishing communities and gentle coastal wildlife.",
+    "summary": "A relaxed coastal retreat providing easy access to Kui Buri's wild elephant safaris, historic train architecture, and vibrant seaside night markets.",
     "highlights": [
       {
         "text": "Kui Buri Elephant Safari",
         "image": "./images/kui_buri_elephant_safari.jpg"
       },
       {
-        "text": "Ao Manao",
-        "image": "./images/ao_manao.jpg"
+        "text": "Hua Hin Night Market",
+        "image": "./images/hua_hin_night_market.jpg"
       },
       {
-        "text": "Prachuap Bay Promenade",
-        "image": "./images/prachuap_bay_promenade.jpg"
+        "text": "Khao Sam Roi Yot National Park",
+        "image": "./images/khao_sam_roi_yot_national_park.jpg"
       }
     ],
-    "accommodation_name": "Prachuap Beach Hotel",
+    "accommodation_name": "Hua Hin Beach Hotel",
     "accommodation_nights": 2,
-    "accommodation_link": "https://www.booking.com/Share-rZpzij",
+    "accommodation_link": "",
     "transport": null,
     "transport_methods": []
   },
   {
     "country": "Thailand",
     "dates": "Wed 24 Feb 2027",
-    "location": "Overnight Train from Prachuap Khiri Khan to Trang",
+    "location": "Overnight Train from Hua Hin to Trang",
     "nights": 1,
     "focus": null,
     "summary": null,
@@ -199,7 +199,7 @@
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "SRT #83 Overnight Sleeper Train (~8h)",
+    "transport": "SRT #83 Overnight Sleeper Train (~10h)",
     "transport_methods": [
       "train"
     ]
