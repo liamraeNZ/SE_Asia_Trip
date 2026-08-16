@@ -369,13 +369,14 @@
       const summaryText = item.summary
         ? `<p class="text-sm text-stone-600 leading-relaxed mb-4">${escapeHtml(item.summary)}</p>`
         : '';
+      const sectionLabel = isTransit(item) ? 'Transport' : 'Highlights';
 
       return `
         <div class="details-panel ${panelClass} bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden relative">
           <div class="p-5 sm:p-6 ${isExpanded ? 'min-w-[20rem]' : ''}">
             ${focusBadge}
             ${summaryText}
-            <p class="text-xs font-semibold uppercase tracking-wide text-stone-400 mb-3">Highlights</p>
+            <p class="text-xs font-semibold uppercase tracking-wide text-stone-400 mb-3">${sectionLabel}</p>
             ${transportDetail}
             ${renderHighlights(item.highlights, item.location)}
             ${renderAccommodation(item)}
@@ -402,15 +403,7 @@
            </div>`
         : '';
       
-      const transportIcon = (isExpanded && transit && item.transport_methods && item.transport_methods.length > 0)
-        ? (() => {
-            const firstMethod = item.transport_methods[0];
-            const transportData = TRANSPORT_ICONS[firstMethod] || { icon: '', label: firstMethod };
-            return `<div class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white border border-stone-200 flex items-center justify-center text-stone-600 shadow-sm" title="${transportData.label}">
-              ${transportData.icon}
-            </div>`;
-          })()
-        : '';
+      const transportIcon = '';
 
       const dotClass = transit
         ? 'bg-stone-300 ring-4 ring-stone-100'
@@ -444,8 +437,11 @@
                 <h3 class="text-xs font-bold text-stone-900 leading-tight">${escapeHtml(item.location)}</h3>
                 <div class="flex flex-wrap items-center gap-1.5 mt-1">${datesLabel}${nightsLabel}</div>
                 ${transportPreview}
-                <div class="expand-btn-text mt-1.5 w-full py-1 px-2 text-xs font-medium text-emerald-600 bg-emerald-50 hover:bg-emerald-100 rounded transition-colors text-center">
-                  ${isExpanded ? 'Hide highlights' : 'Click for highlights →'}
+                <div class="expand-btn-container mt-2 flex items-center justify-between w-full py-2 px-3 text-xs font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-all cursor-pointer group">
+                  <span class="expand-btn-label">${isExpanded ? 'Show less' : 'Show details'}</span>
+                  <svg class="expand-btn-icon w-4 h-4 text-emerald-600 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
                 </div>
               </div>
             </button>
@@ -510,9 +506,16 @@
         panel.classList.toggle('expanded', isExpanded);
         panel.classList.toggle('collapsed', !isExpanded);
 
-        const expandBtnText = btn.querySelector('.expand-btn-text');
-        if (expandBtnText) {
-          expandBtnText.textContent = isExpanded ? 'Hide highlights' : 'Click for highlights →';
+        const expandBtnContainer = btn.querySelector('.expand-btn-container');
+        if (expandBtnContainer) {
+          const expandBtnLabel = expandBtnContainer.querySelector('.expand-btn-label');
+          const expandBtnIcon = expandBtnContainer.querySelector('.expand-btn-icon');
+          if (expandBtnLabel) {
+            expandBtnLabel.textContent = isExpanded ? 'Show less' : 'Show details';
+          }
+          if (expandBtnIcon) {
+            expandBtnIcon.classList.toggle('rotate-180', isExpanded);
+          }
         }
       });
     }

@@ -188,8 +188,12 @@
         "image": "./images/srt_sleeper_train.jpg"
       },
       {
-        "text": "Trang Station",
-        "image": "./images/trang_station.jpg"
+        "text": "1st Class Private Cabin",
+        "image": "./images/1st_class_private_cabin.jpg"
+      },
+      {
+        "text": "2nd Class Air-Con Sleeper",
+        "image": "./images/2nd_class_air_con_sleeper.jpg"
       }
     ],
     "accommodation_name": null,
@@ -209,8 +213,8 @@
     "summary": null,
     "highlights": [
       {
-        "text": "Khuan Tung Ku Pier",
-        "image": null
+        "text": "30min transfer",
+        "image": "./images/30min_transfer.jpg"
       },
       {
         "text": "Thai Longtail Boat",
@@ -262,16 +266,8 @@
     "summary": null,
     "highlights": [
       {
-        "text": "Koh Lipe Beach",
-        "image": "./images/koh_lipe_beach.jpg"
-      },
-      {
-        "text": "Pattaya Beach Immigration",
-        "image": null
-      },
-      {
-        "text": "Langkawi Ferry Terminal",
-        "image": "./images/langkawi_ferry_terminal.jpg"
+        "text": "Island Hopper Speed Boat",
+        "image": "./images/island_hopper_speed_boat.jpg"
       }
     ],
     "accommodation_name": null,
@@ -279,7 +275,7 @@
     "accommodation_link": null,
     "transport": "Island-Hopper Ferry (~4h total on water)",
     "transport_methods": [
-      "ferry"
+      "boat"
     ]
   },
   {
@@ -336,10 +332,6 @@
       {
         "text": "KTM Komuter",
         "image": "./images/ktm_komuter.jpg"
-      },
-      {
-        "text": "Penang Ferry",
-        "image": null
       }
     ],
     "accommodation_name": null,
@@ -347,7 +339,7 @@
     "accommodation_link": null,
     "transport": "Ferry + KTM Komuter Train + Ferry (~2h 30m total)",
     "transport_methods": [
-      "ferry",
+      "boat",
       "train"
     ]
   },
@@ -499,10 +491,6 @@
     "summary": null,
     "highlights": [
       {
-        "text": "Kuala Tembeling Jetty",
-        "image": null
-      },
-      {
         "text": "Tembeling River Longboat",
         "image": "./images/tembeling_river_longboat.jpg"
       }
@@ -556,12 +544,8 @@
     "summary": null,
     "highlights": [
       {
-        "text": "Tembeling River Return",
+        "text": "Tembeling River Longboat",
         "image": "./images/tembeling_river_return.jpg"
-      },
-      {
-        "text": "Kuala Lumpur International Airport (KLIA)",
-        "image": null
       }
     ],
     "accommodation_name": null,
@@ -579,7 +563,7 @@
     "location": "Kuala Lumpur (Transit Buffer Night)",
     "nights": 1,
     "focus": "culture & history",
-    "summary": "Morning connection onward to the Philippines.",
+    "summary": "Stay one night. Morning flight to the Philippines.",
     "highlights": [
       {
         "text": "Lot 10 Hutong Food Court",
@@ -595,18 +579,14 @@
   {
     "country": "Philippines",
     "dates": "Tue 16 Mar 2027",
-    "location": "KUL ➔ CEB ➔ Pier 1 ➔ Bohol",
+    "location": "KUL ➔ CEB ➔ Bohol",
     "nights": null,
     "focus": null,
     "summary": null,
     "highlights": [
       {
-        "text": "Mactan-Cebu Airport",
-        "image": null
-      },
-      {
-        "text": "Cebu Pier 1",
-        "image": null
+        "text": "Fly KUL → CEB",
+        "image": "./images/fly_kul_ceb.jpg"
       },
       {
         "text": "OceanJet Fast Ferry",
@@ -620,13 +600,13 @@
     "transport_methods": [
       "flight",
       "car",
-      "ferry"
+      "boat"
     ]
   },
   {
     "country": "Philippines",
     "dates": "Tue 16 – Sun 21 Mar 2027",
-    "location": "Bohol (Panglao & Interior), Philippines",
+    "location": "Bohol, Philippines",
     "nights": 5,
     "focus": "nature",
     "summary": "An island of eco-adventures combining unique geological wonders and endangered endemic wildlife on land with world-class, easily accessible marine life right off the shore.",
@@ -672,7 +652,7 @@
     "accommodation_link": null,
     "transport": "OceanJet Fast Ferry (~1h 30m)",
     "transport_methods": [
-      "ferry"
+      "boat"
     ]
   },
   {
@@ -725,10 +705,6 @@
       {
         "text": "Siquijor Ferry",
         "image": "./images/siquijor_ferry.jpg"
-      },
-      {
-        "text": "Mactan Airport Transfer",
-        "image": null
       }
     ],
     "accommodation_name": null,
@@ -736,13 +712,13 @@
     "accommodation_link": null,
     "transport": "OceanJet Fast Ferry via Tagbilaran (~3h 30m total)",
     "transport_methods": [
-      "ferry"
+      "boat"
     ]
   },
   {
     "country": "Philippines",
     "dates": "Fri 26 – Sat 27 Mar 2027",
-    "location": "Mactan, Cebu (Airport Buffer Night)",
+    "location": "Mactan, Cebu",
     "nights": 1,
     "focus": "relaxation",
     "summary": "Stay near Mactan-Cebu International Airport, before flight home.",
@@ -760,21 +736,29 @@
   },
   {
     "country": "Philippines",
-    "dates": "Sat 27 Mar 2027",
-    "location": "Fly out to London ✈️",
+    "dates": "Sat 27 – Sun 28 Mar 2027",
+    "location": "Cebu (CEB) ➔ London (LHR) via Kuala Lumpur (KUL)",
     "nights": null,
     "focus": null,
-    "summary": null,
+    "summary": "Inbound journey on Malaysia Airlines / Firefly from Cebu (CEB T2) to London Heathrow (LHR T4) with a 5h 50m layover at Kuala Lumpur (KUL T1)",
     "highlights": [
       {
-        "text": "Mactan-Cebu Airport Terminal 2",
-        "image": null
+        "text": "CEB 14:00 (27th Mar) ➔ KUL 17:40 (27th)",
+        "image": "./images/ceb_1400_27th_mar_kul_1740_27th.jpg"
+      },
+      {
+        "text": "5h 50m Layover at Kuala Lumpur (KUL)",
+        "image": "./images/5h_50m_layover_at_kuala_lumpur_kul.jpg"
+      },
+      {
+        "text": "KUL 23:30 (27th Mar) ➔ LHR 06:35 (28th)",
+        "image": "./images/kul_2330_27th_mar_lhr_0635_28th.jpg"
       }
     ],
     "accommodation_name": null,
     "accommodation_nights": null,
     "accommodation_link": null,
-    "transport": "International Flight",
+    "transport": "Malaysia Airlines / Firefly (MH4696 & MH2)",
     "transport_methods": [
       "flight"
     ]
