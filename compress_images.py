@@ -4,7 +4,7 @@ import subprocess
 import tempfile
 
 IMAGE_DIR = Path("images")
-MAX_DIMENSION = 1600
+MAX_DIMENSION = 800
 JPEG_QUALITY = 70
 IMAGE_EXTENSIONS = {".jpg", ".jpeg"}
 
