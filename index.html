@@ -439,7 +439,8 @@
         const highlightUrl = h.link || `https://www.google.com/search?q=${searchQuery}`;
 
         const imageHtml = h.image
-          ? `<a href="${escapeHtml(highlightUrl)}" target="_blank" rel="noopener noreferrer" class="block">
+          ? `<a href="${escapeHtml(highlightUrl)}" target="_blank" rel="noopener noreferrer" class="relative block">
+                 <span class="absolute top-2 right-2 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/90 text-stone-700 shadow-sm pointer-events-none" aria-hidden="true">↗</span>
                <img src="${escapeHtml(h.image)}" alt="${escapeHtml(text)}" class="w-full h-28 object-cover hover:opacity-90 transition-opacity cursor-pointer">
              </a>`
           : `<div class="w-full h-28 bg-gradient-to-br from-stone-100 to-stone-200 flex items-center justify-center">
@@ -852,7 +853,8 @@
               const searchQuery = encodeURIComponent(`${item.location} ${text}`);
               const highlightUrl = h.link || `https://www.google.com/search?q=${searchQuery}`;
               const imageHtml = h.image
-                ? `<a href="${escapeHtml(highlightUrl)}" target="_blank" rel="noopener noreferrer" class="block">
+                ? `<a href="${escapeHtml(highlightUrl)}" target="_blank" rel="noopener noreferrer" class="relative block">
+                 <span class="absolute top-2 right-2 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/90 text-stone-700 shadow-sm pointer-events-none" aria-hidden="true">↗</span>
                      <img src="${escapeHtml(h.image)}" alt="${escapeHtml(text)}" class="w-full h-24 object-cover rounded-lg hover:opacity-90 transition-opacity cursor-pointer">
                    </a>`
                 : `<div class="w-full h-24 bg-gradient-to-br from-stone-100 to-stone-200 rounded-lg flex items-center justify-center">
