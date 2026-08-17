@@ -2,6 +2,9 @@ import json
 import os
 import re
 import urllib.request
+from pathlib import Path
+
+from compress_images import compress_image
 
 INPUT_JSON_FILE = "trip-data.json"
 OUTPUT_JSON_FILE = "trip-data.json"  # Overwrites input file with updated local image paths
@@ -53,6 +56,12 @@ for location in trip_data:
           filepath, "wb"
       ) as out_file:
         out_file.write(response.read())
+
+      original_size, compressed_size = compress_image(Path(filepath))
+      if compressed_size < original_size:
+        print(
+            f"  Compressed: {original_size:,} -> {compressed_size:,} bytes"
+        )
 
       # Update path in object
       highlight["image"] = f"./images/{filename}"

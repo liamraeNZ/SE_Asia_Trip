@@ -62,7 +62,10 @@
     "accommodation_link": "https://www.booking.com/Share-sHKr5eF",
     "transport": null,
     "transport_methods": [],
-    "coordinates": [18.7883, 98.9853]
+    "coordinates": [
+      18.7883,
+      98.9853
+    ]
   },
   {
     "country": "Thailand",
@@ -127,7 +130,10 @@
     "accommodation_link": "https://www.booking.com/Share-PI384v",
     "transport": null,
     "transport_methods": [],
-    "coordinates": [13.7563, 100.5018]
+    "coordinates": [
+      13.7563,
+      100.5018
+    ]
   },
   {
     "country": "Thailand",
@@ -176,7 +182,10 @@
     "accommodation_link": "",
     "transport": null,
     "transport_methods": [],
-    "coordinates": [12.5615, 99.9576]
+    "coordinates": [
+      12.5615,
+      99.9576
+    ]
   },
   {
     "country": "Thailand",
@@ -259,7 +268,10 @@
     "accommodation_link": "https://www.booking.com/Share-Aw1TAf",
     "transport": null,
     "transport_methods": [],
-    "coordinates": [7.2796, 99.2837]
+    "coordinates": [
+      7.2796,
+      99.2837
+    ]
   },
   {
     "country": "Malaysia",
@@ -320,7 +332,10 @@
     "accommodation_link": null,
     "transport": null,
     "transport_methods": [],
-    "coordinates": [6.3296, 99.7299]
+    "coordinates": [
+      6.3296,
+      99.7299
+    ]
   },
   {
     "country": "Malaysia",
@@ -382,7 +397,10 @@
     "accommodation_link": null,
     "transport": null,
     "transport_methods": [],
-    "coordinates": [5.4141, 100.3288]
+    "coordinates": [
+      5.4141,
+      100.3288
+    ]
   },
   {
     "country": "Malaysia",
@@ -435,7 +453,10 @@
     "accommodation_link": null,
     "transport": null,
     "transport_methods": [],
-    "coordinates": [4.5975, 101.0901]
+    "coordinates": [
+      4.5975,
+      101.0901
+    ]
   },
   {
     "country": "Malaysia",
@@ -488,7 +509,10 @@
     "accommodation_link": null,
     "transport": null,
     "transport_methods": [],
-    "coordinates": [3.1390, 101.6869]
+    "coordinates": [
+      3.139,
+      101.6869
+    ]
   },
   {
     "country": "Malaysia",
@@ -535,6 +559,11 @@
       {
         "text": "Taman Negara Night Jungle Walk",
         "image": "./images/taman_negara_night_jungle_walk.jpg"
+      },
+      {
+        "text": "4D3N Taman Negara Full Board Package (ex-KL)",
+        "link": "https://tamannegara.asia/packages/taman-negara/start-from-kuala-lumpur/4d3n-fb-ex-kl/",
+        "image": "./images/4d3n_taman_negara_full_board_package_ex_kl.jpg"
       }
     ],
     "accommodation_name": null,
@@ -542,7 +571,10 @@
     "accommodation_link": null,
     "transport": null,
     "transport_methods": [],
-    "coordinates": [4.4267, 102.4000]
+    "coordinates": [
+      4.4267,
+      102.4
+    ]
   },
   {
     "country": "Malaysia",
@@ -584,7 +616,10 @@
     "accommodation_link": null,
     "transport": null,
     "transport_methods": [],
-    "coordinates": [2.7456, 101.7072]
+    "coordinates": [
+      2.7456,
+      101.7072
+    ]
   },
   {
     "country": "Philippines",
@@ -643,7 +678,10 @@
     "accommodation_link": null,
     "transport": null,
     "transport_methods": [],
-    "coordinates": [9.5943, 124.1434]
+    "coordinates": [
+      9.5943,
+      124.1434
+    ]
   },
   {
     "country": "Philippines",
@@ -704,7 +742,10 @@
     "accommodation_link": null,
     "transport": null,
     "transport_methods": [],
-    "coordinates": [9.2012, 123.6042]
+    "coordinates": [
+      9.2012,
+      123.6042
+    ]
   },
   {
     "country": "Philippines",
@@ -745,7 +786,10 @@
     "accommodation_link": "https://www.booking.com/Share-omLP1R",
     "transport": null,
     "transport_methods": [],
-    "coordinates": [10.3173, 123.9742]
+    "coordinates": [
+      10.3173,
+      123.9742
+    ]
   },
   {
     "country": "Philippines",
