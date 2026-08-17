@@ -61,7 +61,8 @@
     "accommodation_nights": 5,
     "accommodation_link": "https://www.booking.com/Share-sHKr5eF",
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [18.7883, 98.9853]
   },
   {
     "country": "Thailand",
@@ -125,7 +126,8 @@
     "accommodation_nights": 3,
     "accommodation_link": "https://www.booking.com/Share-PI384v",
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [13.7563, 100.5018]
   },
   {
     "country": "Thailand",
@@ -173,7 +175,8 @@
     "accommodation_nights": 2,
     "accommodation_link": "",
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [12.5615, 99.9576]
   },
   {
     "country": "Thailand",
@@ -255,7 +258,8 @@
     "accommodation_nights": 4,
     "accommodation_link": "https://www.booking.com/Share-Aw1TAf",
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [7.2796, 99.2837]
   },
   {
     "country": "Malaysia",
@@ -315,7 +319,8 @@
     "accommodation_nights": null,
     "accommodation_link": null,
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [6.3296, 99.7299]
   },
   {
     "country": "Malaysia",
@@ -376,7 +381,8 @@
     "accommodation_nights": null,
     "accommodation_link": null,
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [5.4141, 100.3288]
   },
   {
     "country": "Malaysia",
@@ -428,7 +434,8 @@
     "accommodation_nights": null,
     "accommodation_link": null,
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [4.5975, 101.0901]
   },
   {
     "country": "Malaysia",
@@ -480,7 +487,8 @@
     "accommodation_nights": null,
     "accommodation_link": null,
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [3.1390, 101.6869]
   },
   {
     "country": "Malaysia",
@@ -533,7 +541,8 @@
     "accommodation_nights": null,
     "accommodation_link": null,
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [4.4267, 102.4000]
   },
   {
     "country": "Malaysia",
@@ -574,7 +583,8 @@
     "accommodation_nights": null,
     "accommodation_link": null,
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [2.7456, 101.7072]
   },
   {
     "country": "Philippines",
@@ -632,7 +642,8 @@
     "accommodation_nights": null,
     "accommodation_link": null,
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [9.5943, 124.1434]
   },
   {
     "country": "Philippines",
@@ -692,7 +703,8 @@
     "accommodation_nights": null,
     "accommodation_link": null,
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [9.2012, 123.6042]
   },
   {
     "country": "Philippines",
@@ -732,7 +744,8 @@
     "accommodation_nights": 1,
     "accommodation_link": "https://www.booking.com/Share-omLP1R",
     "transport": null,
-    "transport_methods": []
+    "transport_methods": [],
+    "coordinates": [10.3173, 123.9742]
   },
   {
     "country": "Philippines",
