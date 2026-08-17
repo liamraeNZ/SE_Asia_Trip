@@ -230,6 +230,35 @@
       border-top: 2px dotted currentColor;
     }
 
+    .route-transport-marker-container {
+      background: transparent;
+      border: 0;
+    }
+
+    .route-transport-marker {
+      width: 30px;
+      height: 30px;
+      background: white;
+      border: 2px solid var(--route-color);
+      border-radius: 50%;
+      color: var(--route-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .route-transport-marker:hover {
+      transform: scale(1.1);
+    }
+
+    .route-transport-marker-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .route-tooltip {
       border: 0;
       border-radius: 0.75rem;
@@ -394,6 +423,7 @@
     let map = null;
     let markers = [];
     let routeLayers = [];
+    let routeTransportMarkers = [];
 
     function isTransit(item) { return item.transport !== null; }
 
@@ -677,6 +707,7 @@
       L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Sources: <a href="https://www.esri.com/">Esri</a>, HERE, Garmin, USGS, Intermap, INCREMENT P, NRCan, Esri Japan, METI, Esri China (Hong Kong), Esri Korea, Esri (Thailand), NGCC, <a href="https://www.openstreetmap.org/copyright">&copy; OpenStreetMap contributors</a>, and the GIS User Community'
       }).addTo(map);
+      map.on('zoomend moveend', updateRouteTransportMarkerVisibility);
     }
 
     function createCustomIcon(country) {
@@ -700,6 +731,55 @@
       const normalized = String(method || '').toLowerCase();
       if (normalized === 'ferry') return 'boat';
       return ROUTE_STYLES[normalized] ? normalized : 'other';
+    }
+
+    const PRIMARY_TRANSPORT_PRIORITY = ['flight', 'train', 'boat', 'car'];
+
+    function getTransportData(method) {
+      return TRANSPORT_ICONS[method] || {
+        icon: '<span class="text-lg font-semibold" aria-hidden="true">↔</span>',
+        label: ROUTE_STYLES[method] ? ROUTE_STYLES[method].label : 'Other transport'
+      };
+    }
+
+    function getPrimaryTransport(route) {
+      const methods = route.style.methods || [];
+      return PRIMARY_TRANSPORT_PRIORITY.find(method => methods.includes(method))
+        || methods[0]
+        || 'other';
+    }
+
+    function getTransportColor(method) {
+      return (ROUTE_STYLES[method] || ROUTE_STYLES.other).color;
+    }
+
+    function renderTransportDetails(route) {
+      const details = route.transitItems.map(item => {
+        const methods = [...new Set((item.transport_methods || []).map(normalizeRouteMethod))]
+          .map(method => getTransportData(method).label)
+          .join(' + ');
+        const methodDetails = methods
+          ? `<p class="text-xs text-stone-500 mt-1">${escapeHtml(methods)}</p>`
+          : '';
+        const dateDetails = item.dates
+          ? `<p class="text-xs text-stone-400 mt-1">${escapeHtml(item.dates)}</p>`
+          : '';
+        const highlightDetails = item.highlights && item.highlights.length
+          ? `<div class="mt-3">${renderHighlights(item.highlights, item.location)}</div>`
+          : '';
+
+        return `
+          <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+            <p class="text-sm font-medium text-stone-700">${escapeHtml(item.transport || 'Transport leg')}</p>
+            ${dateDetails}
+            ${methodDetails}
+            ${highlightDetails}
+          </div>`;
+      }).join('');
+
+      return `
+        <p class="text-sm font-semibold uppercase tracking-wide text-stone-400 mb-3">Transport details</p>
+        <div class="space-y-2">${details}</div>`;
     }
 
     function resolveRouteStyle(methods) {
@@ -749,6 +829,8 @@
 
     function createRouteLayer(route) {
       const description = getRouteDescription(route);
+      const primaryMethod = getPrimaryTransport(route);
+      const transportData = getTransportData(primaryMethod);
       const line = L.polyline([route.from.coordinates, route.to.coordinates], {
         color: route.style.color,
         weight: 3,
@@ -756,7 +838,7 @@
         dashArray: '2 8',
         lineCap: 'round',
         lineJoin: 'round'
-      }).addTo(map);
+      });
 
       line.bindTooltip(escapeHtml(description), {
         sticky: true,
@@ -764,12 +846,52 @@
         className: 'route-tooltip'
       });
 
+      const routeMarker = L.marker(line.getBounds().getCenter(), {
+        icon: L.divIcon({
+          className: 'route-transport-marker-container',
+          html: `<div class="route-transport-marker" style="--route-color: ${getTransportColor(primaryMethod)}" title="${escapeHtml(transportData.label)}">${transportData.icon}</div>`,
+          iconSize: [30, 30],
+          iconAnchor: [15, 15],
+          popupAnchor: [0, -15]
+        }),
+        title: transportData.label,
+        zIndexOffset: 500
+      });
+      routeMarker.on('click', () => {
+        showTransportModal(route);
+      });
+      routeTransportMarkers.push(routeMarker);
+
+      const routeLayer = L.layerGroup([line, routeMarker]).addTo(map);
+
       if (line._path) {
         line._path.setAttribute('role', 'img');
         line._path.setAttribute('aria-label', description);
       }
 
-      return line;
+      return routeLayer;
+    }
+
+    function updateRouteTransportMarkerVisibility() {
+      if (!map || !routeTransportMarkers.length || !markers.length) return;
+
+      const locationIconRadius = 12;
+      const routeIconRadius = 15;
+      const collisionPadding = 2;
+      const collisionDistance = locationIconRadius + routeIconRadius + collisionPadding;
+
+      routeTransportMarkers.forEach(routeMarker => {
+        const element = routeMarker.getElement();
+        if (!element) return;
+
+        const routePoint = map.latLngToLayerPoint(routeMarker.getLatLng());
+        const overlapsLocation = markers.some(locationMarker => {
+          const locationPoint = map.latLngToLayerPoint(locationMarker.getLatLng());
+          return routePoint.distanceTo(locationPoint) < collisionDistance;
+        });
+
+        element.classList.toggle('route-transport-marker-hidden', overlapsLocation);
+      });
     }
 
     function updateRouteLegend(routes) {
@@ -809,7 +931,9 @@
       document.getElementById('modal-country-badge').className = `px-2 py-0.5 rounded-full text-xs font-semibold ${styles.badge}`;
       document.getElementById('modal-country-badge').textContent = item.country;
       document.getElementById('modal-location').textContent = item.location;
-      document.getElementById('modal-dates').textContent = item.dates;
+      const datesEl = document.getElementById('modal-dates');
+      datesEl.textContent = item.dates;
+      datesEl.classList.remove('hidden');
       
       // Set nights
       const nightsEl = document.getElementById('modal-nights');
@@ -904,6 +1028,42 @@
       modal.classList.add('active');
     }
 
+    function showTransportModal(route) {
+      const modal = document.getElementById('location-modal');
+      const dates = [...new Set(route.transitItems.map(item => item.dates).filter(Boolean))].join(' · ');
+
+      const badgeEl = document.getElementById('modal-country-badge');
+      badgeEl.className = 'px-2 py-0.5 rounded-full text-xs font-semibold bg-stone-100 text-stone-700';
+      badgeEl.textContent = 'Transport';
+      document.getElementById('modal-location').textContent = `${route.from.location} → ${route.to.location}`;
+
+      const datesEl = document.getElementById('modal-dates');
+      datesEl.textContent = dates;
+      datesEl.classList.toggle('hidden', !dates);
+
+      const nightsEl = document.getElementById('modal-nights');
+      nightsEl.innerHTML = '';
+      nightsEl.classList.add('hidden');
+
+      const focusEl = document.getElementById('modal-focus');
+      focusEl.innerHTML = '';
+      focusEl.classList.add('hidden');
+
+      const summaryEl = document.getElementById('modal-summary');
+      summaryEl.textContent = '';
+      summaryEl.classList.add('hidden');
+
+      const highlightsEl = document.getElementById('modal-highlights');
+      highlightsEl.innerHTML = renderTransportDetails(route);
+      highlightsEl.classList.remove('hidden');
+
+      const accommodationEl = document.getElementById('modal-accommodation');
+      accommodationEl.innerHTML = '';
+      accommodationEl.classList.add('hidden');
+
+      modal.classList.add('active');
+    }
+
     function hideLocationModal() {
       const modal = document.getElementById('location-modal');
       modal.classList.remove('active');
@@ -934,6 +1094,7 @@
       routeLayers.forEach(routeLayer => map.removeLayer(routeLayer));
       markers = [];
       routeLayers = [];
+      routeTransportMarkers = [];
       updateRouteLegend([]);
       updateRouteSummary([]);
       
@@ -973,6 +1134,7 @@
         const group = L.featureGroup(markers);
         map.fitBounds(group.getBounds().pad(0.1));
       }
+      updateRouteTransportMarkerVisibility();
     }
 
     function toggleView(view) {
