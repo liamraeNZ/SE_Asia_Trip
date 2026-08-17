@@ -24,6 +24,10 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
     rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <style>
     .timeline-line::before {
       content: '';
@@ -112,6 +116,132 @@
         transform: translateY(0);
       }
     }
+
+    #map {
+      z-index: 1;
+    }
+
+    .location-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .location-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .location-modal-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      transform: scale(0.95);
+      transition: transform 0.2s ease;
+    }
+
+    .location-modal.active .location-modal-content {
+      transform: scale(1);
+    }
+
+    .location-modal-content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .location-modal-content::-webkit-scrollbar-thumb {
+      background: #e5e7eb;
+      border-radius: 9999px;
+    }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .leaflet-popup-content {
+      margin: 12px 16px;
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.4;
+    }
+
+    .leaflet-popup-content::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .leaflet-popup-content::-webkit-scrollbar-thumb {
+      background: #e5e7eb;
+      border-radius: 9999px;
+    }
+
+    .custom-marker {
+      background: white;
+      border-radius: 50%;
+      border: 3px solid;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .custom-marker.thailand {
+      border-color: #10b981;
+    }
+
+    .custom-marker.malaysia {
+      border-color: #3b82f6;
+    }
+
+    .custom-marker.philippines {
+      border-color: #f59e0b;
+    }
+
+    .custom-marker-inner {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .custom-marker.thailand .custom-marker-inner {
+      background: #10b981;
+    }
+
+    .custom-marker.malaysia .custom-marker-inner {
+      background: #3b82f6;
+    }
+
+    .route-legend-line {
+      display: inline-block;
+      width: 1.75rem;
+      border-top: 2px dotted currentColor;
+    }
+
+    .route-tooltip {
+      border: 0;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      line-height: 1.35;
+      max-width: 18rem;
+      white-space: normal;
+    }
+
   </style>
 </head>
 
@@ -163,7 +293,7 @@
 
     <!-- Metrics Bar -->
     <div class="max-w-4xl mx-auto px-4 sm:px-6 -mt-6 relative z-10">
-      <div class="grid grid-cols-3 gap-3 sm:gap-4">
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
         <div class="bg-white rounded-xl shadow-md border border-stone-100 p-4 sm:p-5 text-center">
           <p id="metric-nights" class="text-2xl sm:text-3xl font-bold text-emerald-600">0</p>
           <p class="text-xs sm:text-sm text-stone-500 mt-1">Total Nights</p>
@@ -172,54 +302,64 @@
           <p id="metric-destinations" class="text-2xl sm:text-3xl font-bold text-blue-600">0</p>
           <p class="text-xs sm:text-sm text-stone-500 mt-1">Destinations</p>
         </div>
+        <button type="button" id="view-toggle" class="group col-span-2 sm:col-span-1 flex min-h-full w-full flex-col items-center justify-center gap-1.5 rounded-xl border border-stone-100 bg-white p-4 text-center shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/30 sm:p-5">
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 transition-colors group-hover:bg-emerald-100">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+            </svg>
+          </span>
+          <span id="view-toggle-text" class="text-xs font-semibold text-stone-700 sm:text-sm">View as Timeline</span>
+        </button>
       </div>
     </div>
 
-    <!-- Controls -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-4">
-      <!-- Country Filters -->
-      <div class="flex flex-wrap gap-2" id="country-filters">
-        <button data-country="All"
-          class="filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-stone-800 text-white transition-colors">All</button>
-        <button data-country="Thailand"
-          class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition-colors">Thailand</button>
-        <button data-country="Malaysia"
-          class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors">Malaysia</button>
-        <button data-country="Philippines"
-          class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors">Philippines</button>
-      </div>
-
-      <!-- Search & Toggle Row -->
-      <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-        <div class="relative flex-1 max-w-md">
-          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400" fill="none" stroke="currentColor"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <input id="search-input" type="search" placeholder="Search locations, highlights, hotels…"
-            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none text-sm">
-        </div>
-        <div class="flex items-center gap-3 shrink-0">
-          <span id="toggle-label-left" class="text-sm font-medium text-stone-800">Show All Legs</span>
-          <button id="stays-toggle" role="switch" aria-checked="false"
-            class="toggle-track relative w-12 h-7 rounded-full bg-stone-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/40">
-            <span class="toggle-thumb absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow"></span>
-          </button>
-          <span id="toggle-label-right" class="text-sm text-stone-400">Stays Only</span>
-        </div>
-      </div>
-
-      <p id="results-count" class="text-sm text-stone-500"></p>
-    </div>
+    <p id="results-count" class="hidden max-w-4xl mx-auto px-4 sm:px-6 pt-5 pb-2 text-sm font-medium text-stone-500"></p>
 
     <!-- Timeline -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+    <main id="timeline-container" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pt-5 pb-16">
       <div id="timeline" class="relative timeline-line space-y-2"></div>
       <div id="empty-state" class="hidden text-center py-16">
         <p class="text-stone-400 text-lg">No matching itinerary items found.</p>
       </div>
     </main>
+
+    <!-- Map View -->
+    <main id="map-container" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pt-5 pb-16">
+      <div id="map" class="w-full h-[600px] rounded-2xl border border-stone-200 shadow-lg"></div>
+      <div id="map-empty-state" class="hidden text-center py-16">
+        <p class="text-stone-400 text-lg">No matching locations found on map.</p>
+      </div>
+      <div id="map-legend" class="hidden mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border border-stone-200 bg-white px-4 py-3 text-xs text-stone-600 shadow-sm" role="group" aria-label="Transport route legend">
+        <span class="font-semibold text-stone-700">Travel routes</span>
+        <div id="route-legend-items" class="flex flex-wrap items-center gap-x-4 gap-y-2"></div>
+      </div>
+      <p id="map-route-summary" class="sr-only" aria-live="polite"></p>
+    </main>
+
+    <!-- Location Modal -->
+    <div id="location-modal" class="location-modal">
+      <div class="location-modal-content p-6">
+        <div class="flex justify-between items-start mb-4">
+          <div class="flex items-center gap-2">
+            <span id="modal-country-badge" class="px-2 py-0.5 rounded-full text-xs font-semibold"></span>
+          </div>
+          <button id="modal-close" class="text-stone-400 hover:text-stone-600 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <h3 id="modal-location" class="font-bold text-stone-900 text-lg mb-2"></h3>
+        <div class="flex items-center gap-2 mb-3">
+          <span id="modal-dates" class="text-sm text-stone-600"></span>
+          <span id="modal-nights" class="inline-flex items-center gap-1 text-xs text-stone-500"></span>
+        </div>
+        <div id="modal-focus" class="mb-3"></div>
+        <p id="modal-summary" class="text-sm text-stone-600 leading-relaxed mb-4"></p>
+        <div id="modal-highlights" class="mb-4"></div>
+        <div id="modal-accommodation"></div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -230,7 +370,11 @@
       try {
         const response = await fetch('trip-data.json');
         TRIP_DATA = await response.json();
-        renderTimeline();
+        if (state.view === 'map') {
+          updateMap();
+        } else {
+          renderTimeline();
+        }
         updateMetrics();
       } catch (error) {
         console.error('Failed to load trip data:', error);
@@ -270,7 +414,20 @@
       }
     };
 
-    let state = { country: 'All', staysOnly: false, search: '', expandedIndex: 0 };
+    const ROUTE_STYLES = {
+      train: { label: 'Train', color: '#7c3aed' },
+      flight: { label: 'Flight', color: '#f97316' },
+      boat: { label: 'Boat / ferry', color: '#0284c7' },
+      car: { label: 'Car', color: '#b45309' },
+      bus: { label: 'Bus', color: '#0f766e' },
+      mixed: { label: 'Multiple modes', color: '#475569' },
+      other: { label: 'Other transport', color: '#64748b' }
+    };
+
+    let state = { expandedIndex: 0, view: 'map' };
+    let map = null;
+    let markers = [];
+    let routeLayers = [];
 
     function isTransit(item) { return item.transport !== null; }
 
@@ -464,23 +621,7 @@
     }
 
     function filterItems() {
-      const q = state.search.toLowerCase();
-      return TRIP_DATA.filter(item => {
-        if (state.country !== 'All' && item.country !== state.country) return false;
-        if (state.staysOnly && isTransit(item)) return false;
-        if (q) {
-          const highlightText = (item.highlights || []).map(highlightSearchText).join(' ');
-          const haystack = [item.location, highlightText, item.accommodation_name, item.transport]
-            .filter(Boolean).join(' ').toLowerCase();
-          if (!haystack.includes(q)) return false;
-        }
-        return true;
-      });
-    }
-
-    function countryLegCount() {
-      if (state.country === 'All') return TRIP_DATA.length;
-      return TRIP_DATA.filter(item => item.country === state.country).length;
+      return TRIP_DATA;
     }
 
     function toggleExpand(index) {
@@ -527,16 +668,20 @@
     }
 
     function renderTimeline() {
+      // Only render if we're in timeline view
+      if (state.view !== 'timeline') return;
+      
       const items = filterItems();
       const timeline = document.getElementById('timeline');
       const empty = document.getElementById('empty-state');
       const countEl = document.getElementById('results-count');
+      countEl.classList.remove('hidden');
 
       if (state.expandedIndex !== null && state.expandedIndex >= items.length) {
         state.expandedIndex = null;
       }
 
-      countEl.textContent = `${items.length} of ${countryLegCount()} leg${countryLegCount() !== 1 ? 's' : ''} in ${state.country}`;
+      countEl.textContent = `${items.length} leg${items.length !== 1 ? 's' : ''}`;
 
       if (items.length === 0) {
         timeline.innerHTML = '';
@@ -553,46 +698,17 @@
       bindTimelineEvents();
     }
 
-    function setCountryFilter(country) {
-      state.country = country;
-      state.expandedIndex = null;
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        const c = btn.dataset.country;
-        const active = c === country;
-        btn.classList.toggle('active', active);
-        if (active) {
-          btn.className = 'filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-stone-800 text-white transition-colors';
-        } else {
-          const colors = { All: 'bg-stone-100 text-stone-700 hover:bg-stone-200', Thailand: 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200', Malaysia: 'bg-blue-100 text-blue-800 hover:bg-blue-200', Philippines: 'bg-amber-100 text-amber-800 hover:bg-amber-200' };
-          btn.className = `filter-btn px-4 py-2 rounded-full text-sm font-medium ${colors[c] || 'bg-stone-100 text-stone-700 hover:bg-stone-200'} transition-colors`;
-        }
-      });
-      renderTimeline();
-    }
-
-    function setStaysToggle(on) {
-      state.staysOnly = on;
-      state.expandedIndex = null;
-      const toggle = document.getElementById('stays-toggle');
-      const thumb = toggle.querySelector('.toggle-thumb');
-      toggle.setAttribute('aria-checked', on);
-      toggle.classList.toggle('bg-emerald-500', on);
-      toggle.classList.toggle('bg-stone-300', !on);
-      thumb.style.transform = on ? 'translateX(1.25rem)' : 'translateX(0)';
-      document.getElementById('toggle-label-left').classList.toggle('text-stone-800', !on);
-      document.getElementById('toggle-label-left').classList.toggle('font-medium', !on);
-      document.getElementById('toggle-label-left').classList.toggle('text-stone-400', on);
-      document.getElementById('toggle-label-right').classList.toggle('text-stone-800', on);
-      document.getElementById('toggle-label-right').classList.toggle('font-medium', on);
-      document.getElementById('toggle-label-right').classList.toggle('text-stone-400', !on);
-      renderTimeline();
-    }
-
+    /* ── Passcode ── */
     /* ── Passcode ── */
     function showApp() {
       document.getElementById('passcode-modal').classList.add('hidden');
       document.getElementById('app').classList.remove('hidden');
       updateMetrics();
+      
+      // Initialize the map view since it's now the default
+      setTimeout(() => {
+        toggleView('map');
+      }, 100);
     }
 
     function getPasscodeValue() {
@@ -641,6 +757,328 @@
       document.getElementById('passcode-submit').addEventListener('click', attemptUnlock);
     }
 
+    /* ── Map Functions ── */
+    function initMap() {
+      if (map) return;
+      
+      map = L.map('map').setView([12.0, 102.0], 5);
+      
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Sources: <a href="https://www.esri.com/">Esri</a>, HERE, Garmin, USGS, Intermap, INCREMENT P, NRCan, Esri Japan, METI, Esri China (Hong Kong), Esri Korea, Esri (Thailand), NGCC, <a href="https://www.openstreetmap.org/copyright">&copy; OpenStreetMap contributors</a>, and the GIS User Community'
+      }).addTo(map);
+    }
+
+    function createCustomIcon(country) {
+      const countryClass = country.toLowerCase();
+      return L.divIcon({
+        className: 'custom-marker-container',
+        html: `<div class="custom-marker ${countryClass}"><div class="custom-marker-inner"></div></div>`,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+        popupAnchor: [0, -12]
+      });
+    }
+
+    function hasValidCoordinates(item) {
+      return Array.isArray(item.coordinates)
+        && item.coordinates.length === 2
+        && item.coordinates.every(value => Number.isFinite(value));
+    }
+
+    function normalizeRouteMethod(method) {
+      const normalized = String(method || '').toLowerCase();
+      if (normalized === 'ferry') return 'boat';
+      return ROUTE_STYLES[normalized] ? normalized : 'other';
+    }
+
+    function resolveRouteStyle(methods) {
+      const normalizedMethods = [...new Set(methods.map(normalizeRouteMethod))];
+      const styleKey = normalizedMethods.length === 1
+        ? normalizedMethods[0]
+        : normalizedMethods.length > 1 ? 'mixed' : 'other';
+      return { key: styleKey, methods: normalizedMethods, ...ROUTE_STYLES[styleKey] };
+    }
+
+    function buildRouteSegments(items) {
+      const segments = [];
+      let previousDestination = null;
+
+      items.forEach((item, index) => {
+        if (isTransit(item) || !hasValidCoordinates(item)) return;
+
+        if (previousDestination) {
+          const transitItems = items
+            .slice(previousDestination.index + 1, index)
+            .filter(isTransit);
+          const methods = transitItems.flatMap(item => item.transport_methods || []);
+          if (transitItems.length && methods.length === 0) methods.push('other');
+
+          if (methods.length) {
+            segments.push({
+              from: previousDestination.item,
+              to: item,
+              transitItems,
+              style: resolveRouteStyle(methods)
+            });
+          }
+        }
+
+        previousDestination = { item, index };
+      });
+
+      return segments;
+    }
+
+    function getRouteDescription(route) {
+      return route.transitItems
+        .map(item => item.transport)
+        .filter(Boolean)
+        .join(' · ');
+    }
+
+    function createRouteLayer(route) {
+      const description = getRouteDescription(route);
+      const line = L.polyline([route.from.coordinates, route.to.coordinates], {
+        color: route.style.color,
+        weight: 3,
+        opacity: 0.85,
+        dashArray: '2 8',
+        lineCap: 'round',
+        lineJoin: 'round'
+      }).addTo(map);
+
+      line.bindTooltip(escapeHtml(description), {
+        sticky: true,
+        direction: 'top',
+        className: 'route-tooltip'
+      });
+
+      if (line._path) {
+        line._path.setAttribute('role', 'img');
+        line._path.setAttribute('aria-label', description);
+      }
+
+      return line;
+    }
+
+    function updateRouteLegend(routes) {
+      const legend = document.getElementById('map-legend');
+      const legendItems = document.getElementById('route-legend-items');
+      const styleKeys = [...new Set(routes.map(route => route.style.key))];
+
+      if (!styleKeys.length) {
+        legend.classList.add('hidden');
+        legendItems.innerHTML = '';
+        return;
+      }
+
+      legend.classList.remove('hidden');
+      legendItems.innerHTML = styleKeys.map(key => {
+        const style = ROUTE_STYLES[key];
+        return `
+          <span class="inline-flex items-center gap-2">
+            <span class="route-legend-line" style="color: ${style.color}" aria-hidden="true"></span>
+            <span>${escapeHtml(style.label)}</span>
+          </span>`;
+      }).join('');
+    }
+
+    function updateRouteSummary(routes) {
+      const summary = document.getElementById('map-route-summary');
+      summary.textContent = routes.length
+        ? routes.map(getRouteDescription).join('. ')
+        : 'No travel routes are currently shown.';
+    }
+
+    function showLocationModal(item) {
+      const modal = document.getElementById('location-modal');
+      const styles = COUNTRY_STYLES[item.country] || COUNTRY_STYLES.Thailand;
+      
+      // Set basic info
+      document.getElementById('modal-country-badge').className = `px-2 py-0.5 rounded-full text-xs font-semibold ${styles.badge}`;
+      document.getElementById('modal-country-badge').textContent = item.country;
+      document.getElementById('modal-location').textContent = item.location;
+      document.getElementById('modal-dates').textContent = item.dates;
+      
+      // Set nights
+      const nightsEl = document.getElementById('modal-nights');
+      if (item.nights != null) {
+        nightsEl.innerHTML = `<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>${item.nights} night${item.nights !== 1 ? 's' : ''}`;
+        nightsEl.classList.remove('hidden');
+      } else {
+        nightsEl.classList.add('hidden');
+      }
+      
+      // Set focus badge
+      const focusEl = document.getElementById('modal-focus');
+      if (item.focus) {
+        focusEl.innerHTML = `
+          <div class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-full">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
+            <span class="text-sm font-semibold text-emerald-700">${escapeHtml(item.focus)}</span>
+          </div>`;
+        focusEl.classList.remove('hidden');
+      } else {
+        focusEl.classList.add('hidden');
+      }
+      
+      // Set summary
+      const summaryEl = document.getElementById('modal-summary');
+      if (item.summary) {
+        summaryEl.textContent = item.summary;
+        summaryEl.classList.remove('hidden');
+      } else {
+        summaryEl.classList.add('hidden');
+      }
+      
+      // Set highlights
+      const highlightsEl = document.getElementById('modal-highlights');
+      if (item.highlights && item.highlights.length) {
+        highlightsEl.innerHTML = `
+          <p class="text-sm font-semibold uppercase tracking-wide text-stone-400 mb-3">Highlights</p>
+          <div class="grid grid-cols-2 gap-3">
+            ${item.highlights.map(h => {
+              const text = highlightSearchText(h);
+              const imageHtml = h.image
+                ? `<img src="${escapeHtml(h.image)}" alt="${escapeHtml(text)}" class="w-full h-24 object-cover rounded-lg">`
+                : `<div class="w-full h-24 bg-gradient-to-br from-stone-100 to-stone-200 rounded-lg flex items-center justify-center">
+                     <svg class="w-8 h-8 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                   </div>`;
+              return `
+                <div>
+                  ${imageHtml}
+                  <p class="text-sm text-stone-600 mt-2">${escapeHtml(text)}</p>
+                </div>`;
+            }).join('')}
+          </div>`;
+        highlightsEl.classList.remove('hidden');
+      } else {
+        highlightsEl.classList.add('hidden');
+      }
+      
+      // Set accommodation
+      const accommodationEl = document.getElementById('modal-accommodation');
+      if (item.accommodation_name) {
+        accommodationEl.innerHTML = `
+          <div class="p-4 bg-stone-50 rounded-xl border border-stone-200">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-white border border-stone-200 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-wide text-stone-400 mb-1">Accommodation</p>
+                <p class="font-semibold text-stone-800">${escapeHtml(item.accommodation_name)}</p>
+                ${item.accommodation_nights ? `<p class="text-sm text-stone-500">${item.accommodation_nights} night${item.accommodation_nights !== 1 ? 's' : ''}</p>` : ''}
+              </div>
+            </div>
+          </div>`;
+        accommodationEl.classList.remove('hidden');
+      } else {
+        accommodationEl.classList.add('hidden');
+      }
+      
+      // Show modal
+      modal.classList.add('active');
+    }
+
+    function hideLocationModal() {
+      const modal = document.getElementById('location-modal');
+      modal.classList.remove('active');
+    }
+
+    function createMarker(item, index) {
+      if (!item.coordinates || isTransit(item)) return null;
+      
+      const icon = createCustomIcon(item.country);
+      
+      const marker = L.marker(item.coordinates, { icon })
+        .addTo(map);
+      
+      marker.on('click', () => {
+        showLocationModal(item);
+      });
+      
+      return marker;
+    }
+
+    function updateMap() {
+      if (!map) {
+        initMap();
+      }
+      
+      // Clear existing markers and route layers before rebuilding the map
+      markers.forEach(marker => map.removeLayer(marker));
+      routeLayers.forEach(routeLayer => map.removeLayer(routeLayer));
+      markers = [];
+      routeLayers = [];
+      updateRouteLegend([]);
+      updateRouteSummary([]);
+      
+      const items = filterItems();
+      const mapEmptyState = document.getElementById('map-empty-state');
+      const mapElement = document.getElementById('map');
+      const mappedItems = items.filter(item => !isTransit(item) && hasValidCoordinates(item));
+      
+      if (mappedItems.length === 0) {
+        mapEmptyState.classList.remove('hidden');
+        mapElement.classList.add('hidden');
+        return;
+      }
+      
+      mapEmptyState.classList.add('hidden');
+      mapElement.classList.remove('hidden');
+      map.invalidateSize({ pan: false });
+
+      // Draw routes first so destination markers remain above them
+      const routes = buildRouteSegments(items);
+      routes.forEach(route => {
+        routeLayers.push(createRouteLayer(route));
+      });
+      updateRouteLegend(routes);
+      updateRouteSummary(routes);
+      
+      // Create markers for mapped stay locations
+      mappedItems.forEach(item => {
+        const marker = createMarker(item);
+        if (marker) {
+          markers.push(marker);
+        }
+      });
+      
+      // Fit map to show all markers
+      if (markers.length > 0) {
+        const group = L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.1));
+      }
+    }
+
+    function toggleView(view) {
+      state.view = view;
+      const timelineContainer = document.getElementById('timeline-container');
+      const mapContainer = document.getElementById('map-container');
+      const viewToggleText = document.getElementById('view-toggle-text');
+      const resultsCount = document.getElementById('results-count');
+      
+      if (view === 'map') {
+        timelineContainer.classList.add('hidden');
+        mapContainer.classList.remove('hidden');
+        viewToggleText.textContent = 'View as Timeline';
+        resultsCount.classList.add('hidden');
+        updateMap();
+        // Force map to recalculate size after becoming visible
+        setTimeout(() => {
+          if (map) {
+            map.invalidateSize();
+          }
+        }, 100);
+      } else {
+        timelineContainer.classList.remove('hidden');
+        mapContainer.classList.add('hidden');
+        viewToggleText.textContent = 'View as Map';
+        renderTimeline();
+      }
+    }
+
     /* ── Init ── */
     function init() {
       initPasscode();
@@ -652,18 +1090,24 @@
         document.querySelector('.passcode-input').focus();
       }
 
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => setCountryFilter(btn.dataset.country));
+      document.getElementById('view-toggle').addEventListener('click', () => {
+        const newView = state.view === 'timeline' ? 'map' : 'timeline';
+        toggleView(newView);
       });
-
-      document.getElementById('stays-toggle').addEventListener('click', () => {
-        setStaysToggle(!state.staysOnly);
+      
+      // Modal close handlers
+      document.getElementById('modal-close').addEventListener('click', hideLocationModal);
+      document.getElementById('location-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'location-modal') {
+          hideLocationModal();
+        }
       });
-
-      document.getElementById('search-input').addEventListener('input', e => {
-        state.search = e.target.value;
-        state.expandedIndex = null;
-        renderTimeline();
+      
+      // Close modal on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          hideLocationModal();
+        }
       });
     }
 
