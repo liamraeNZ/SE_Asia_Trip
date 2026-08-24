@@ -20,9 +20,7 @@
         "image": "./images/bkk_1905_cnx_2025_13th_feb.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "Thai Airways (TG917 & TG120)",
     "transport_methods": [
       "flight"
@@ -57,9 +55,18 @@
         "image": "./images/khao_soi.jpg"
       }
     ],
-    "accommodation_name": "The Opium Chiang Mai",
-    "accommodation_nights": 5,
-    "accommodation_link": "https://www.booking.com/Share-sHKr5eF",
+    "accommodations": [
+      {
+        "name": "Aphilapa Residence",
+        "nights": 3,
+        "link": "https://www.booking.com/Share-DcEvdv"
+      },
+      {
+        "name": "Chai Lai Elephant Sanctuary",
+        "nights": 2,
+        "link": "https://chailaiorchid.com/"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -88,9 +95,7 @@
         "image": "./images/2nd_class_air_con_sleeper.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "SRT #10 Special Express Train (~13h)",
     "transport_methods": [
       "train"
@@ -125,9 +130,13 @@
         "image": "./images/yaowarat_chinatown.jpg"
       }
     ],
-    "accommodation_name": "True Siam Rangnam",
-    "accommodation_nights": 3,
-    "accommodation_link": "https://www.booking.com/Share-PI384v",
+    "accommodations": [
+      {
+        "name": "True Siam Rangnam",
+        "nights": 3,
+        "link": "https://www.booking.com/Share-PI384v"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -148,9 +157,7 @@
         "image": "./images/srt_southern_railway.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "SRT #31 Special Express CNR Train (~3h 30m)",
     "transport_methods": [
       "train"
@@ -177,9 +184,13 @@
         "image": "./images/khao_sam_roi_yot_national_park.jpg"
       }
     ],
-    "accommodation_name": "Bonne Nuit Hotel",
-    "accommodation_nights": 2,
-    "accommodation_link": "https://www.booking.com/Share-49Fvfp",
+    "accommodations": [
+      {
+        "name": "Bonne Nuit Hotel",
+        "nights": 2,
+        "link": "https://www.booking.com/Share-49Fvfp"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -208,9 +219,7 @@
         "image": "./images/2nd_class_air_con_sleeper.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "SRT #83 Overnight Sleeper Train (~10h)",
     "transport_methods": [
       "train"
@@ -233,9 +242,7 @@
         "image": "./images/thai_longtail_boat.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "Private Car + Longtail Boat (~1h 15m total)",
     "transport_methods": [
       "car",
@@ -263,9 +270,13 @@
         "image": "./images/koh_muk_beachfront_dining.jpg"
       }
     ],
-    "accommodation_name": "Mook Montra Resort",
-    "accommodation_nights": 4,
-    "accommodation_link": "https://www.booking.com/Share-Aw1TAf",
+    "accommodations": [
+      {
+        "name": "Mook Montra Resort",
+        "nights": 4,
+        "link": "https://www.booking.com/Share-Aw1TAf"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -286,9 +297,7 @@
         "image": "./images/island_hopper_speed_boat.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "Island-Hopper Ferry (~4h total on water)",
     "transport_methods": [
       "boat"
@@ -327,9 +336,7 @@
         "image": "./images/tanjung_rhu_beach.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -354,9 +361,7 @@
         "image": "./images/ktm_komuter.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "Ferry + KTM Komuter Train + Ferry (~2h 30m total)",
     "transport_methods": [
       "boat",
@@ -392,9 +397,7 @@
         "image": "./images/chew_jetty_street_art.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -415,9 +418,7 @@
         "image": "./images/ktm_ets_express_train.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "KTM ETS Electric Train Service (~1h 40m)",
     "transport_methods": [
       "train"
@@ -448,9 +449,7 @@
         "image": "./images/kek_lok_tong_tasik_cermin.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -471,9 +470,7 @@
         "image": "./images/ktm_ets_gold_service.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "KTM ETS Gold/Platinum Train (~2h 15m)",
     "transport_methods": [
       "train"
@@ -504,9 +501,7 @@
         "image": "./images/kuala_lumpur_rooftop_bar.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -527,9 +522,7 @@
         "image": "./images/tembeling_river_longboat.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "Transfer + River Longboat (~4h total)",
     "transport_methods": [
       "car",
@@ -566,9 +559,7 @@
         "image": "./images/4d3n_taman_negara_full_board_package_ex_kl.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -589,9 +580,7 @@
         "image": "./images/tembeling_river_return.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "River Boat + Flat Private Transfer (~4h total)",
     "transport_methods": [
       "boat",
@@ -611,9 +600,7 @@
         "image": "./images/lot_10_hutong_food_court.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -638,9 +625,7 @@
         "image": "./images/oceanjet_fast_ferry.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "Direct Flight + Grab Taxi + OceanJet Ferry (~6h 30m total)",
     "transport_methods": [
       "flight",
@@ -673,9 +658,7 @@
         "image": "./images/napaling_reef_sardine_run.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -696,9 +679,7 @@
         "image": "./images/tagbilaran_fast_ferry.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "OceanJet Fast Ferry (~1h 30m)",
     "transport_methods": [
       "boat"
@@ -737,9 +718,7 @@
         "image": "./images/siquijor_coastal_road.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -760,9 +739,7 @@
         "image": "./images/siquijor_ferry.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "OceanJet Fast Ferry via Tagbilaran (~3h 30m total)",
     "transport_methods": [
       "boat"
@@ -781,9 +758,13 @@
         "image": "./images/mactan_seafood_dinner.jpg"
       }
     ],
-    "accommodation_name": "Lapu-Lapu Cottages",
-    "accommodation_nights": 1,
-    "accommodation_link": "https://www.booking.com/Share-omLP1R",
+    "accommodations": [
+      {
+        "name": "Lapu-Lapu Cottages",
+        "nights": 1,
+        "link": "https://www.booking.com/Share-omLP1R"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -812,9 +793,7 @@
         "image": "./images/kul_2330_27th_mar_lhr_0635_28th.jpg"
       }
     ],
-    "accommodation_name": null,
-    "accommodation_nights": null,
-    "accommodation_link": null,
+    "accommodations": [],
     "transport": "Malaysia Airlines / Firefly (MH4696 & MH2)",
     "transport_methods": [
       "flight"
