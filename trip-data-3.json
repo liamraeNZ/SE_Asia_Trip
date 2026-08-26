@@ -105,6 +105,7 @@
     "country": "Thailand",
     "dates": "Fri 19 – Sun 21 Feb 2027",
     "location": "Bangkok (Leg 1), Thailand",
+    "destination_id": "bangkok",
     "nights": 2,
     "focus": "culture & history",
     "summary": "First legs in the capital. Arrive early morning via sleeper train to explore Chao Phraya riverfront landmarks, iconic temples, and buzzing local street food markets.",
@@ -209,6 +210,7 @@
     "country": "Thailand",
     "dates": "Tue 23 – Thu 25 Feb 2027",
     "location": "Bangkok (Leg 2), Thailand",
+    "destination_id": "bangkok",
     "nights": 2,
     "focus": "culture & history",
     "summary": "Second stay in Bangkok. Perfect for day trips to Ayutthaya, exploring Yaowarat Chinatown night markets, or shopping before flying south.",
@@ -491,7 +493,8 @@
   {
     "country": "Malaysia",
     "dates": "Tue 9 – Fri 12 Mar 2027",
-    "location": "Kuala Lumpur, Malaysia",
+    "location": "Kuala Lumpur (Visit 1), Malaysia",
+    "destination_id": "kuala-lumpur",
     "nights": 3,
     "focus": "culture & history",
     "summary": "A futuristic metropolis anchored in deep multi-ethnic roots. Futuristic glass-and-steel skyscrapers rise alongside colorful Hindu shrines, historic mosques, sprawling night markets, and sophisticated rooftop lounges.",
@@ -602,7 +605,8 @@
   {
     "country": "Malaysia",
     "dates": "Mon 15 – Tue 16 Mar 2027",
-    "location": "Kuala Lumpur (Transit Buffer Night)",
+    "location": "Kuala Lumpur (Visit 2 — Transit Buffer Night), Malaysia",
+    "destination_id": "kuala-lumpur",
     "nights": 1,
     "focus": "culture & history",
     "summary": "Stay one night. Morning flight to the Philippines.",
@@ -616,8 +620,8 @@
     "transport": null,
     "transport_methods": [],
     "coordinates": [
-      2.7456,
-      101.7072
+      3.139,
+      101.6869
     ]
   },
   {

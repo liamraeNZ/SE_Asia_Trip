@@ -389,6 +389,7 @@
           </button>
         </div>
         <h3 id="modal-location" class="font-bold text-stone-900 text-lg mb-2"></h3>
+        <div id="modal-visits" class="hidden mb-4"></div>
         <div class="flex items-center gap-2 mb-3">
           <span id="modal-dates" class="text-sm text-stone-600"></span>
           <span id="modal-nights" class="inline-flex items-center gap-1 text-xs text-stone-500"></span>
@@ -460,7 +461,8 @@
       if (!variant || variant.source !== state.tripDataSource) return false;
 
       TRIP_DATA = variant.data;
-      state.expandedIndex = 0;
+      state.expandedEntryKey = 'transit:0';
+      state.selectedVisitIndices = {};
       if (state.view === 'map') {
         updateMap();
       } else {
@@ -527,13 +529,17 @@
       other: { label: 'Other transport', color: '#64748b' }
     };
 
-    let state = { expandedIndex: 0, view: 'map', tripVariant: null, tripDataSource: null };
+    let state = { expandedEntryKey: 'transit:0', selectedVisitIndices: {}, view: 'map', tripVariant: null, tripDataSource: null };
     let map = null;
     let markers = [];
     let routeLayers = [];
     let routeTransportMarkers = [];
 
     function isTransit(item) { return item.transport !== null; }
+
+    function getDestinationKey(item) {
+      return item.destination_id || item.location;
+    }
 
     function escapeHtml(str) {
       const d = document.createElement('div');
@@ -644,7 +650,45 @@
         </div>`;
     }
 
-    function renderDetailsPanel(item, isExpanded) {
+    function getVisitLabel(item, visitIndex) {
+      const match = item.location && item.location.match(/\(([^)]+)\)/);
+      return match ? match[1] : `Visit ${visitIndex + 1}`;
+    }
+
+    function getDestinationDisplayName(group) {
+      const location = group.visits[0].item.location;
+      if (group.visits.length === 1) return location;
+      return location.replace(/\s+\((?:Leg|Visit)\s+\d+(?:\s+—[^)]*)?\)(?=,|$)/, '');
+    }
+
+    function renderVisitSelector(group, selectorType) {
+      if (!group || group.visits.length < 2) return '';
+
+      const isModal = selectorType === 'modal';
+      const selectorClass = isModal ? 'modal-visit-selector' : 'timeline-visit-selector';
+      const groupAttribute = isModal ? 'data-modal-group-id' : 'data-group-id';
+      const selectedVisitIndex = getSelectedVisitIndex(group);
+      const buttons = group.visits.map((visit, visitIndex) => {
+        const isSelected = selectedVisitIndex === visitIndex;
+        return `
+          <button type="button"
+            class="${selectorClass} flex-1 min-w-[8rem] rounded-lg border px-3 py-2 text-left transition-colors ${isSelected ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-stone-200 bg-white text-stone-600 hover:border-emerald-300'}"
+            ${groupAttribute}="${escapeHtml(group.id)}"
+            data-visit-index="${visitIndex}"
+            aria-pressed="${isSelected}">
+            <span class="block text-xs font-semibold">${escapeHtml(getVisitLabel(visit.item, visitIndex))}</span>
+            <span class="block mt-0.5 text-[11px] ${isSelected ? 'text-emerald-700' : 'text-stone-400'}">${escapeHtml(visit.item.dates || '')}</span>
+          </button>`;
+      }).join('');
+
+      return `
+        <div class="mb-4" role="group" aria-label="Select destination visit">
+          <p class="text-xs font-semibold uppercase tracking-wide text-stone-400 mb-2">Select visit</p>
+          <div class="flex flex-wrap gap-2">${buttons}</div>
+        </div>`;
+    }
+
+    function renderDetailsPanel(item, isExpanded, group = null) {
       const panelClass = isExpanded ? 'expanded' : 'collapsed';
       const transportDetail = item.transport
         ? `<div class="mb-4">
@@ -666,6 +710,7 @@
       return `
         <div class="details-panel ${panelClass} bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden relative">
           <div class="p-5 sm:p-6 ${isExpanded ? 'min-w-[20rem]' : ''}">
+            ${renderVisitSelector(group, 'timeline')}
             ${focusBadge}
             ${summaryText}
             <p class="text-xs font-semibold uppercase tracking-wide text-stone-400 mb-3">${sectionLabel}</p>
@@ -676,13 +721,21 @@
         </div>`;
     }
 
-    function renderTripRow(item, index, styles) {
-      const isExpanded = state.expandedIndex === index;
-      const transit = isTransit(item);
-      const nightsLabel = item.nights != null
-        ? `<span class="inline-flex items-center gap-1 text-xs text-stone-500"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>${item.nights} night${item.nights !== 1 ? 's' : ''}</span>`
+    function renderTripRow(entry, index, styles) {
+      const group = entry.type === 'destination' ? entry.group : null;
+      const item = group ? getSelectedVisit(group).item : entry.item;
+      const isExpanded = state.expandedEntryKey === entry.key;
+      const transit = !group;
+      const multipleVisits = group && group.visits.length > 1;
+      const totalNights = group
+        ? group.visits.reduce((total, visit) => total + (visit.item.nights || 0), 0)
+        : item.nights;
+      const nightsLabel = totalNights != null
+        ? `<span class="inline-flex items-center gap-1 text-xs text-stone-500"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>${totalNights} night${totalNights !== 1 ? 's' : ''}${multipleVisits ? ' total' : ''}</span>`
         : '';
-      const datesLabel = item.dates
+      const datesLabel = multipleVisits
+        ? `<span class="inline-flex items-center gap-1 text-xs font-medium text-stone-600"><i class="ph ph-repeat text-sm"></i>${group.visits.length} visits</span>`
+        : item.dates
         ? `<span class="inline-flex items-center gap-1 text-xs font-medium text-stone-600"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>${escapeHtml(item.dates)}</span>`
         : '';
       const typeBadge = transit
@@ -710,14 +763,16 @@
       const cardAccent = transit ? '' : '<div class="h-1 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400"></div>';
       const activeRing = isExpanded ? 'ring-2 ring-emerald-400/50 shadow-md' : 'shadow-sm';
       const cardWidth = 'w-full sm:w-80 shrink-0';
+      const title = group ? getDestinationDisplayName(group) : item.location;
+      const entryKey = escapeHtml(entry.key);
 
       return `
-        <div class="relative pl-10 md:pl-12 trip-row" data-index="${index}">
+        <div class="relative pl-10 md:pl-12 trip-row" data-entry-key="${entryKey}">
           <div class="absolute left-2.5 md:left-3 top-4 w-4 h-4 rounded-full ${dotClass} z-10 flex items-center justify-center">${dotInner}</div>
           <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch">
             <button type="button"
               class="location-card trip-row-toggle text-left relative ${cardWidth} rounded-xl border ${cardBg} ${activeRing} overflow-hidden transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
-              data-index="${index}"
+              data-entry-key="${entryKey}"
               aria-expanded="${isExpanded}">
               ${cardAccent}
               ${transportIcon}
@@ -726,7 +781,7 @@
                   <span class="px-1.5 py-0.5 rounded-full text-xs font-semibold ${styles.badge}">${escapeHtml(item.country)}</span>
                   ${typeBadge}
                 </div>
-                <h3 class="text-xs font-bold text-stone-900 leading-tight">${escapeHtml(item.location)}</h3>
+                <h3 class="text-xs font-bold text-stone-900 leading-tight">${escapeHtml(title)}</h3>
                 <div class="flex flex-wrap items-center gap-1.5 mt-1">${datesLabel}${nightsLabel}</div>
                 ${transportPreview}
                 <div class="expand-btn-container mt-2 flex items-center justify-between w-full py-2 px-3 text-xs font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-all cursor-pointer group">
@@ -737,7 +792,7 @@
                 </div>
               </div>
             </button>
-            ${renderDetailsPanel(item, isExpanded)}
+            ${renderDetailsPanel(item, isExpanded, group)}
           </div>
         </div>`;
     }
@@ -745,7 +800,7 @@
     function computeMetrics() {
       const stays = TRIP_DATA.filter(i => !isTransit(i));
       const totalNights = TRIP_DATA.reduce((s, i) => s + (i.nights || 0), 0);
-      const destinations = stays.length;
+      const destinations = new Set(stays.map(getDestinationKey)).size;
       return { totalNights, destinations };
     }
 
@@ -755,19 +810,74 @@
       document.getElementById('metric-destinations').textContent = m.destinations;
     }
 
+    function getDestinationGroups(items) {
+      const groups = new Map();
+
+      items.forEach((item, rawIndex) => {
+        if (isTransit(item)) return;
+
+        const key = String(getDestinationKey(item));
+        if (!groups.has(key)) {
+          groups.set(key, {
+            key,
+            id: `destination:${rawIndex}`,
+            firstRawIndex: rawIndex,
+            visits: []
+          });
+        }
+        groups.get(key).visits.push({ item, rawIndex });
+      });
+
+      return [...groups.values()];
+    }
+
+    function getTimelineEntries(items) {
+      const groups = getDestinationGroups(items);
+      const groupsByKey = new Map(groups.map(group => [group.key, group]));
+
+      return items.reduce((entries, item, rawIndex) => {
+        if (isTransit(item)) {
+          entries.push({ type: 'transit', item, rawIndex, key: `transit:${rawIndex}` });
+          return entries;
+        }
+
+        const group = groupsByKey.get(String(getDestinationKey(item)));
+        if (group.firstRawIndex === rawIndex) {
+          entries.push({ type: 'destination', group, rawIndex, key: group.id });
+        }
+        return entries;
+      }, []);
+    }
+
+    function getSelectedVisitIndex(group) {
+      const selectedIndex = Number(state.selectedVisitIndices[group.id]);
+      return Number.isInteger(selectedIndex) && selectedIndex >= 0 && selectedIndex < group.visits.length
+        ? selectedIndex
+        : 0;
+    }
+
+    function getSelectedVisit(group) {
+      return group.visits[getSelectedVisitIndex(group)];
+    }
+
     function filterItems() {
       return TRIP_DATA;
     }
 
-    function toggleExpand(index) {
-      state.expandedIndex = state.expandedIndex === index ? null : index;
+    function toggleExpand(entryKey) {
+      state.expandedEntryKey = state.expandedEntryKey === entryKey ? null : entryKey;
       updateExpandedRows();
+    }
+
+    function selectTimelineVisit(groupId, visitIndex) {
+      state.selectedVisitIndices[groupId] = visitIndex;
+      renderTimeline();
     }
 
     function updateExpandedRows() {
       document.querySelectorAll('.trip-row').forEach(row => {
-        const idx = Number(row.dataset.index);
-        const isExpanded = state.expandedIndex === idx;
+        const entryKey = row.dataset.entryKey;
+        const isExpanded = state.expandedEntryKey === entryKey;
         const btn = row.querySelector('.trip-row-toggle');
         const panel = row.querySelector('.details-panel');
         if (!btn || !panel) return;
@@ -798,37 +908,45 @@
 
     function bindTimelineEvents() {
       document.querySelectorAll('.trip-row-toggle').forEach(btn => {
-        btn.addEventListener('click', () => toggleExpand(Number(btn.dataset.index)));
+        btn.addEventListener('click', () => toggleExpand(btn.dataset.entryKey));
+      });
+      document.querySelectorAll('.timeline-visit-selector').forEach(button => {
+        button.addEventListener('click', () => {
+          selectTimelineVisit(button.dataset.groupId, Number(button.dataset.visitIndex));
+        });
       });
     }
 
     function renderTimeline() {
-      // Only render if we're in timeline view
       if (state.view !== 'timeline') return;
-      
+
       const items = filterItems();
+      const entries = getTimelineEntries(items);
+      const destinationCount = getDestinationGroups(items).length;
+      const transitCount = items.filter(isTransit).length;
       const timeline = document.getElementById('timeline');
       const empty = document.getElementById('empty-state');
       const countEl = document.getElementById('results-count');
       countEl.classList.remove('hidden');
 
-      if (state.expandedIndex !== null && state.expandedIndex >= items.length) {
-        state.expandedIndex = null;
+      if (state.expandedEntryKey && !entries.some(entry => entry.key === state.expandedEntryKey)) {
+        state.expandedEntryKey = null;
       }
 
-      countEl.textContent = `${items.length} leg${items.length !== 1 ? 's' : ''}`;
+      countEl.textContent = `${destinationCount} destination${destinationCount !== 1 ? 's' : ''} · ${transitCount} travel leg${transitCount !== 1 ? 's' : ''}`;
 
-      if (items.length === 0) {
+      if (entries.length === 0) {
         timeline.innerHTML = '';
-        state.expandedIndex = null;
+        state.expandedEntryKey = null;
         empty.classList.remove('hidden');
         return;
       }
 
       empty.classList.add('hidden');
-      timeline.innerHTML = items.map((item, index) => {
+      timeline.innerHTML = entries.map((entry, index) => {
+        const item = entry.type === 'destination' ? getSelectedVisit(entry.group).item : entry.item;
         const styles = COUNTRY_STYLES[item.country] || COUNTRY_STYLES.Thailand;
-        return renderTripRow(item, index, styles);
+        return renderTripRow(entry, index, styles);
       }).join('');
       bindTimelineEvents();
     }
@@ -1059,8 +1177,17 @@
         : 'No travel routes are currently shown.';
     }
 
-    function showLocationModal(item) {
+    function showLocationModal(group) {
+      const item = getSelectedVisit(group).item;
       const modal = document.getElementById('location-modal');
+      const visitsEl = document.getElementById('modal-visits');
+      if (group.visits.length > 1) {
+        visitsEl.innerHTML = renderVisitSelector(group, 'modal');
+        visitsEl.classList.remove('hidden');
+      } else {
+        visitsEl.innerHTML = '';
+        visitsEl.classList.add('hidden');
+      }
       const styles = COUNTRY_STYLES[item.country] || COUNTRY_STYLES.Thailand;
       
       // Set basic info
@@ -1164,6 +1291,9 @@
 
     function showTransportModal(route) {
       const modal = document.getElementById('location-modal');
+      const visitsEl = document.getElementById('modal-visits');
+      visitsEl.innerHTML = '';
+      visitsEl.classList.add('hidden');
       const dates = [...new Set(route.transitItems.map(item => item.dates).filter(Boolean))].join(' · ');
 
       const badgeEl = document.getElementById('modal-country-badge');
@@ -1203,20 +1333,21 @@
       modal.classList.remove('active');
     }
 
-    function createMarker(item, index) {
-      if (!item.coordinates || isTransit(item)) return null;
-      
+    function createMarker(group) {
+      const visit = group.visits.find(candidate => hasValidCoordinates(candidate.item));
+      if (!visit) return null;
+
+      const item = visit.item;
       const icon = createCustomIcon(item.country);
-      
       const marker = L.marker(item.coordinates, {
         icon,
         zIndexOffset: 1000
       }).addTo(map);
-      
+
       marker.on('click', () => {
-        showLocationModal(item);
+        showLocationModal(group);
       });
-      
+
       return marker;
     }
 
@@ -1237,9 +1368,10 @@
       const items = filterItems();
       const mapEmptyState = document.getElementById('map-empty-state');
       const mapElement = document.getElementById('map');
-      const mappedItems = items.filter(item => !isTransit(item) && hasValidCoordinates(item));
+      const destinationGroups = getDestinationGroups(items);
+      const mappedGroups = destinationGroups.filter(group => group.visits.some(visit => hasValidCoordinates(visit.item)));
       
-      if (mappedItems.length === 0) {
+      if (mappedGroups.length === 0) {
         mapEmptyState.classList.remove('hidden');
         mapElement.classList.add('hidden');
         return;
@@ -1257,9 +1389,9 @@
       updateRouteLegend(routes);
       updateRouteSummary(routes);
       
-      // Create markers for mapped stay locations
-      mappedItems.forEach(item => {
-        const marker = createMarker(item);
+      // Create one marker per destination; visit selection happens in the modal
+      mappedGroups.forEach(group => {
+        const marker = createMarker(group);
         if (marker) {
           markers.push(marker);
         }
@@ -1315,6 +1447,16 @@
         if (e.target.id === 'location-modal') {
           hideLocationModal();
         }
+      });
+      document.getElementById('modal-visits').addEventListener('click', (e) => {
+        const button = e.target.closest('.modal-visit-selector');
+        if (!button) return;
+
+        const group = getDestinationGroups(TRIP_DATA).find(item => item.id === button.dataset.modalGroupId);
+        if (!group) return;
+
+        state.selectedVisitIndices[group.id] = Number(button.dataset.visitIndex);
+        showLocationModal(group);
       });
       
       // Close modal on escape key
