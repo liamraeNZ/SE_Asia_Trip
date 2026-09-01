@@ -148,7 +148,7 @@
   {
     "country": "Thailand",
     "dates": "Mon 22 Feb 2027",
-    "location": "Bangkok ➔ Hua Hin",
+    "location": "Bangkok ➔ Prachuap Khiri Khan",
     "nights": null,
     "focus": null,
     "summary": null,
@@ -159,7 +159,7 @@
       }
     ],
     "accommodations": [],
-    "transport": "SRT #31 Special Express CNR Train (~3h 30m)",
+    "transport": "SRT #31 Special Express CNR Train (~4h 50m)",
     "transport_methods": [
       "train"
     ]
@@ -167,42 +167,67 @@
   {
     "country": "Thailand",
     "dates": "Mon 22 – Wed 24 Feb 2027",
-    "location": "Hua Hin & Kui Buri, Thailand",
+    "destination_id": "prachuap-khiri-khan",
+    "location": "Prachuap Khiri Khan, Thailand",
     "nights": 2,
     "focus": "nature",
-    "summary": "A relaxed coastal retreat providing easy access to Kui Buri's wild elephant safaris, historic train architecture, and vibrant seaside night markets.",
+    "summary": "A peaceful provincial capital nestled along three dramatic limestone bays. Highlights include Ao Manao, Dusky Langurs around Khao Lom Muak, fresh promenade seafood, and the nearby Wat Ao Noi temple.",
     "highlights": [
       {
-        "text": "Kui Buri Elephant Safari",
+        "text": "Kui Buri Wild Elephant Safari",
         "image": "./images/kui_buri_elephant_safari.jpg"
       },
       {
-        "text": "Hua Hin Night Market",
-        "image": "./images/hua_hin_night_market.jpg"
+        "text": "Ao Manao Beach",
+        "image": "./images/ao_manao_beach.jpg"
       },
       {
-        "text": "Khao Sam Roi Yot National Park",
-        "image": "./images/khao_sam_roi_yot_national_park.jpg"
+        "text": "Khao Lom Muak & Dusky Langurs",
+        "image": "./images/dusky_langurs.jpg",
+        "link": "https://commons.wikimedia.org/wiki/File:Duskyleafmonkey1.jpg"
+      },
+      {
+        "text": "Prachuap Bay Promenade & Seafood",
+        "image": "./images/prachuap_bay_promenade.jpg"
+      },
+      {
+        "text": "Wat Ao Noi Teak Temple",
+        "image": "./images/wat_ao_noi.jpg",
+        "link": "https://commons.wikimedia.org/wiki/File:Ao_Noi,_Mueang_Prachuap_Khiri_Khan_District,_Prachuap_Khiri_Khan,_Thailand_-_panoramio.jpg"
       }
     ],
     "accommodations": [
       {
-        "name": "Bonne Nuit Hotel",
+        "name": "Prachuap Beach Hotel",
         "nights": 2,
-        "link": "https://www.booking.com/Share-49Fvfp"
+        "link": "https://www.booking.com/hotel/th/prachuap-beach.en-gb.html"
       }
     ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
-      12.5615,
-      99.9576
+      11.8124,
+      99.7972
     ]
   },
   {
     "country": "Thailand",
     "dates": "Wed 24 Feb 2027",
-    "location": "Overnight Train from Hua Hin to Trang",
+    "location": "Prachuap ➔ Kui Buri Safari ➔ Hua Hin Station",
+    "nights": null,
+    "focus": null,
+    "summary": null,
+    "highlights": [],
+    "accommodations": [],
+    "transport": "Private Transfer to Huan Hin, via Kui Buri Safari Stop (~2h driving total)",
+    "transport_methods": [
+      "car"
+    ]
+  },
+  {
+    "country": "Thailand",
+    "dates": "Wed 24 Feb 2027",
+    "location": "Hua Hin Station ➔ Trang Station (Overnight)",
     "nights": 1,
     "focus": null,
     "summary": null,
@@ -214,10 +239,6 @@
       {
         "text": "1st Class Private Cabin",
         "image": "./images/1st_class_private_cabin.jpg"
-      },
-      {
-        "text": "2nd Class Air-Con Sleeper",
-        "image": "./images/2nd_class_air_con_sleeper.jpg"
       }
     ],
     "accommodations": [],
