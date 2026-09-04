@@ -501,7 +501,7 @@
   {
     "country": "Malaysia",
     "dates": "Tue 9 – Fri 12 Mar 2027",
-    "location": "Kuala Lumpur (Visit 1), Malaysia",
+    "location": "Kuala Lumpur, Malaysia",
     "destination_id": "kuala-lumpur",
     "nights": 3,
     "focus": "culture & history",
@@ -613,7 +613,7 @@
   {
     "country": "Malaysia",
     "dates": "Mon 15 – Tue 16 Mar 2027",
-    "location": "Kuala Lumpur (Visit 2 — Transit Buffer Night), Malaysia",
+    "location": "Kuala Lumpur, Malaysia",
     "destination_id": "kuala-lumpur",
     "nights": 1,
     "focus": "culture & history",
