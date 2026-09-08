@@ -682,7 +682,13 @@
         "image": "./images/napaling_reef_sardine_run.jpg"
       }
     ],
-    "accommodations": [],
+    "accommodations": [
+      {
+        "name": "Bluewater Panglao Beach Resort",
+        "nights": 5,
+        "link": "https://www.agoda.com/bluewater-panglao-beach-resort/hotel/bohol-ph.html"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -742,7 +748,13 @@
         "image": "./images/siquijor_coastal_road.jpg"
       }
     ],
-    "accommodations": [],
+    "accommodations": [
+      {
+        "name": "Island Casitas Siquijor",
+        "nights": 5,
+        "link": "https://www.booking.com/Share-y0VruT"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
