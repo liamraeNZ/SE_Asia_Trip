@@ -358,7 +358,13 @@
         "image": "./images/tanjung_rhu_beach.jpg"
       }
     ],
-    "accommodations": [],
+    "accommodations": [
+      {
+        "name": "Airis Sanctuary Resort",
+        "nights": 3,
+        "link": "https://www.booking.com/Share-611ZO5"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
