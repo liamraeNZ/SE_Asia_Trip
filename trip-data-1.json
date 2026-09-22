@@ -425,7 +425,13 @@
         "image": "./images/chew_jetty_street_art.jpg"
       }
     ],
-    "accommodations": [],
+    "accommodations": [
+      {
+        "name": "Rare Heritage House",
+        "nights": 3,
+        "link": "https://www.agoda.com/en-gb/reunion-heritage-house/hotel/penang-my.html"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
