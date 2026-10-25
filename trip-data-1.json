@@ -375,7 +375,7 @@
   {
     "country": "Malaysia",
     "dates": "Thu 4 Mar 2027",
-    "location": "Langkawi ➔ Kuala Kedah Pier ➔ Butterworth ➔ George Town",
+    "location": "Langkawi ➔ Kuala Kedah Pier ➔ Alor Setar ➔ Butterworth ➔ George Town",
     "nights": null,
     "focus": null,
     "summary": null,
@@ -390,7 +390,7 @@
       }
     ],
     "accommodations": [],
-    "transport": "Ferry + KTM Komuter Train + Ferry (~2h 30m total)",
+    "transport": "Ferry to Kuala Kedah (~1h 45m) + bus/taxi to Alor Setar + KTM Komuter Train to Butterworth + Penang Ferry (~4–5h 30m total)",
     "transport_methods": [
       "boat",
       "train"
@@ -483,7 +483,13 @@
         "image": "./images/kek_lok_tong_tasik_cermin.jpg"
       }
     ],
-    "accommodations": [],
+    "accommodations": [
+      {
+        "name": "French Hotel",
+        "nights": 2,
+        "link": "https://www.agoda.com/en-gb/french-hotel/hotel/ipoh-my.html"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -536,7 +542,13 @@
         "image": "./images/kuala_lumpur_rooftop_bar.jpg"
       }
     ],
-    "accommodations": [],
+    "accommodations": [
+      {
+        "name": "Ceylonz Suites @ Bukit Ceylon",
+        "nights": 3,
+        "link": "https://www.agoda.com/en-gb/ceylonz-suites-bukit-ceylon-by-roomy/hotel/kuala-lumpur-my.html"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -636,7 +648,13 @@
         "image": "./images/lot_10_hutong_food_court.jpg"
       }
     ],
-    "accommodations": [],
+    "accommodations": [
+      {
+        "name": "Hotel M9",
+        "nights": 1,
+        "link": "https://www.agoda.com/en-gb/hotel-99-m9-sepang/hotel/kuala-lumpur-my.html"
+      }
+    ],
     "transport": null,
     "transport_methods": [],
     "coordinates": [
@@ -653,7 +671,7 @@
     "summary": null,
     "highlights": [
       {
-        "text": "Fly KUL → CEB",
+        "text": "KUL 09:50 (16th Mar) ➔ CEB 13:55 (16th)",
         "image": "./images/fly_kul_ceb.jpg"
       },
       {
@@ -662,7 +680,7 @@
       }
     ],
     "accommodations": [],
-    "transport": "Direct Flight + Grab Taxi + OceanJet Ferry (~6h 30m total)",
+    "transport": "Malaysia Airlines MH4695 (KUL T1 ➔ CEB T2) + Grab Taxi + OceanJet Ferry (~6h 30m total)",
     "transport_methods": [
       "flight",
       "car",
